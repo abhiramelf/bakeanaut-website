@@ -108,16 +108,16 @@ export default function Hero() {
           animate="visible"
           className="font-display font-extrabold uppercase leading-[0.85] tracking-tighter text-glow-white"
         >
-          <span className="block text-[clamp(2.5rem,10vw,6.6rem)]">
+          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)]">
             EDIBLE
           </span>
-          <span className="block text-[clamp(2.5rem,10vw,6.6rem)] sm:pl-[8vw] lg:pl-[12vw]">
+          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)] sm:pl-[8vw] lg:pl-[12vw]">
             MISSIONS.
           </span>
-          <span className="block text-[clamp(2.5rem,10vw,6.6rem)]">
+          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)]">
             CLEARED FOR
           </span>
-          <span className="block text-[clamp(2.5rem,10vw,6.6rem)] sm:pl-[8vw] lg:pl-[12vw] text-cosmic-orange text-glow-orange">
+          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)] sm:pl-[8vw] lg:pl-[12vw] text-cosmic-orange text-glow-orange">
             LAUNCH.
           </span>
         </motion.h1>
@@ -137,10 +137,10 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-[clamp(0.75rem,1.5vw,1.25rem)]">
             <Link
               href="/menu"
-              className="border-2 border-mission-white px-8 py-3.5 font-display text-xs font-bold uppercase tracking-[0.15em] text-mission-white transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange sm:px-10 sm:py-4 sm:text-sm"
+              className="border-2 border-mission-white px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-mission-white transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange"
             >
               Browse Missions
             </Link>
@@ -148,7 +148,7 @@ export default function Hero() {
               href={buildSmartOrderUrl(items)}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-cosmic-orange px-8 py-3.5 font-display text-xs font-bold uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110 sm:px-10 sm:py-4 sm:text-sm"
+              className="bg-cosmic-orange px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
             >
               Order on WhatsApp
             </a>
