@@ -6,6 +6,13 @@ export interface MenuItem {
   description: string
   price: number | null
   badges: BadgeType[]
+  images?: string[]
+}
+
+export interface FeaturedItem {
+  item: MenuItem
+  sectorName: string
+  sectorCode: string
 }
 
 export interface Sector {

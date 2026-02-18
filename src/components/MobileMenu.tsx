@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { buildDirectOrderUrl } from '@/lib/whatsapp'
 
@@ -10,9 +11,9 @@ interface MobileMenuProps {
 }
 
 const navLinks = [
-  { href: '#menu', label: 'Menu' },
-  { href: '#about', label: 'About' },
-  { href: '#gallery', label: 'Gallery' },
+  { href: '/menu', label: 'Menu', isRoute: true },
+  { href: '/#about', label: 'About', isRoute: false },
+  { href: '/#gallery', label: 'Gallery', isRoute: false },
 ]
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
@@ -77,16 +78,27 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             </div>
 
             <div className="flex flex-1 flex-col gap-1 px-6">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={handleNavClick}
-                  className="border-b border-light-purple py-4 font-display text-lg font-700 uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.isRoute ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={handleNavClick}
+                    className="border-b border-light-purple py-4 font-display text-lg font-700 uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={handleNavClick}
+                    className="border-b border-light-purple py-4 font-display text-lg font-700 uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
 
             <div className="p-6">

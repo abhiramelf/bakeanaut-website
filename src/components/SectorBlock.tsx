@@ -8,16 +8,17 @@ interface SectorBlockProps {
   hideHeader?: boolean
 }
 
-const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII']
-
 export default function SectorBlock({ sector, index, hideHeader }: SectorBlockProps) {
+  // Extract numeral from sector code (e.g. "SECTOR IV" → "IV")
+  const watermark = sector.code.replace(/^SECTOR\s*/i, '') || String(index + 1)
+
   return (
     <div className="relative">
       {!hideHeader && (
         <>
           {/* Large watermark number */}
           <div className="section-watermark">
-            {romanNumerals[index] || String(index + 1)}
+            {watermark}
           </div>
 
           <ScrollReveal direction="left">
@@ -45,7 +46,7 @@ export default function SectorBlock({ sector, index, hideHeader }: SectorBlockPr
         </>
       )}
 
-      <div className={`${hideHeader ? '' : 'mt-6'} space-y-1`}>
+      <div className={`${hideHeader ? '' : 'mt-6'} grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`}>
         {sector.items.map((item, i) => (
           <ScrollReveal key={item.id} delay={i * 0.05}>
             <MenuItem

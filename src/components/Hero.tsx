@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import StarField from './StarField'
 import { buildDirectOrderUrl } from '@/lib/whatsapp'
@@ -152,12 +153,12 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="flex items-center gap-4">
-            <a
-              href="#menu"
+            <Link
+              href="/menu"
               className="border-2 border-mission-white px-8 py-3.5 font-display text-xs font-700 uppercase tracking-[0.15em] text-mission-white transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange sm:px-10 sm:py-4 sm:text-sm"
             >
               Browse Missions
-            </a>
+            </Link>
             <a
               href={buildDirectOrderUrl()}
               target="_blank"

@@ -117,8 +117,8 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${spaceGrotesk.variable} ${spaceMono.variable} grain-overlay antialiased`}
       >
-        <a href="#menu" className="skip-to-content">
-          Skip to menu
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
         </a>
         <CartProvider>{children}</CartProvider>
       </body>

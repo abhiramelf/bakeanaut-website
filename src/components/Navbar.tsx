@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
@@ -11,9 +12,9 @@ import CartDrawer from './CartDrawer'
 import StickyCartBar from './StickyCartBar'
 
 const navLinks = [
-  { href: '#menu', label: 'Menu', id: 'menu' },
-  { href: '#about', label: 'About', id: 'about' },
-  { href: '#gallery', label: 'Gallery', id: 'gallery' },
+  { href: '/menu', label: 'Menu', id: 'menu', isRoute: true },
+  { href: '/#about', label: 'About', id: 'about', isRoute: false },
+  { href: '/#gallery', label: 'Gallery', id: 'gallery', isRoute: false },
 ]
 
 export default function Navbar() {
@@ -53,7 +54,7 @@ export default function Navbar() {
           className="mx-auto flex max-w-[1280px] items-center px-6 py-4 lg:px-8"
         >
           {/* Logo — left */}
-          <a href="#hero" aria-label="Bakeanaut - back to top" className="shrink-0">
+          <Link href="/" aria-label="Bakeanaut - back to home" className="shrink-0">
             <Image
               src="/images/logo.png"
               alt="Bakeanaut"
@@ -62,24 +63,38 @@ export default function Navbar() {
               priority
               className="h-14 w-auto sm:h-16 lg:h-[72px]"
             />
-          </a>
+          </Link>
 
           {/* Desktop nav links — absolutely centered in the nav bar */}
           <div className="hidden flex-1 items-center justify-center md:flex">
             <div className="flex items-center gap-10">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className={`font-mono text-sm tracking-[0.15em] uppercase transition-colors duration-200 ${
-                    activeSection === link.id
-                      ? 'text-cosmic-orange'
-                      : 'text-muted-purple hover:text-mission-white'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.isRoute ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={`font-mono text-sm tracking-[0.15em] uppercase transition-colors duration-200 ${
+                      activeSection === link.id
+                        ? 'text-cosmic-orange'
+                        : 'text-muted-purple hover:text-mission-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className={`font-mono text-sm tracking-[0.15em] uppercase transition-colors duration-200 ${
+                      activeSection === link.id
+                        ? 'text-cosmic-orange'
+                        : 'text-muted-purple hover:text-mission-white'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                )
+              )}
             </div>
           </div>
 
