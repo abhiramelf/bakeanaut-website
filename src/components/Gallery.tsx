@@ -4,12 +4,12 @@ import Image from 'next/image'
 import ScrollReveal from './ScrollReveal'
 
 const galleryItems = [
-  { id: 1, name: 'RED PLANET', code: 'RP-001', src: '/images/gallery/IMG_2004.png', tall: true },
-  { id: 2, name: 'MANHATTAN MOON', code: 'MM-003', src: '/images/gallery/IMG_2099.png', tall: false },
-  { id: 3, name: 'APOLLO ROCK', code: 'AR-002', src: '/images/gallery/IMG_1742.png', tall: false },
-  { id: 4, name: 'SOLAR FLARE MINI', code: 'SF-004', src: '/images/gallery/IMG_2063.png', tall: true },
-  { id: 5, name: 'MILKY WAY SWIRL', code: 'MW-002', src: '/images/gallery/IMG_1765.png', tall: false },
-  { id: 6, name: 'CRIMSON CLASSIFIED', code: 'CC-SPL', src: '/images/gallery/IMG_1995.png', tall: false },
+  { id: 1, name: '', code: '', src: '/images/gallery/IMG_2004.png', tall: true },
+  { id: 2, name: '', code: '', src: '/images/gallery/IMG_2099.png', tall: false },
+  { id: 3, name: '', code: '', src: '/images/gallery/IMG_1742.png', tall: false },
+  { id: 4, name: '', code: '', src: '/images/gallery/IMG_2063.png', tall: true },
+  { id: 5, name: '', code: '', src: '/images/gallery/IMG_1765.png', tall: false },
+  { id: 6, name: '', code: '', src: '/images/gallery/IMG_1995.png', tall: false },
 ]
 
 export default function Gallery() {
@@ -46,9 +46,8 @@ export default function Gallery() {
               className={item.tall ? 'row-span-2' : ''}
             >
               <div
-                className={`group relative overflow-hidden border border-light-purple/30 transition-all duration-300 hover:border-cosmic-orange/40 ${
-                  item.tall ? 'aspect-[3/5]' : 'aspect-square'
-                }`}
+                className={`group relative overflow-hidden border border-light-purple/30 transition-all duration-300 hover:border-cosmic-orange/40 ${item.tall ? 'aspect-[3/5]' : 'aspect-square'
+                  }`}
               >
                 <Image
                   src={item.src}
