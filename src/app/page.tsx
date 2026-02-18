@@ -7,6 +7,7 @@ import FeaturedMissions from '@/components/FeaturedMissions'
 import CrewProgram from '@/components/CrewProgram'
 import Footer from '@/components/Footer'
 import LoadingScreen from '@/components/LoadingScreen'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 export default function Home() {
   return (
@@ -16,9 +17,13 @@ export default function Home() {
         <Navbar />
         <Hero />
         <BrandIntro />
-        <Gallery />
+        <ErrorBoundary>
+          <Gallery />
+        </ErrorBoundary>
         <CrewTransmissions />
-        <FeaturedMissions />
+        <ErrorBoundary>
+          <FeaturedMissions />
+        </ErrorBoundary>
         <CrewProgram />
         <Footer />
       </main>

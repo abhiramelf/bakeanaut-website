@@ -2,8 +2,7 @@
 
 import Link from 'next/link'
 import ScrollReveal from './ScrollReveal'
-import { buildSmartOrderUrl } from '@/lib/whatsapp'
-import { useCart } from '@/hooks/useCart'
+import { buildRankEnquiryUrl } from '@/lib/whatsapp'
 
 const ranks = [
   {
@@ -44,7 +43,6 @@ const ranks = [
 ]
 
 export default function CrewProgram() {
-  const { items } = useCart()
 
   return (
     <section className="relative overflow-hidden bg-deep-space px-6 py-28 md:py-36">
@@ -53,7 +51,7 @@ export default function CrewProgram() {
       <div className="absolute bottom-0 right-0 h-24 w-24 border-b-[3px] border-r-[3px] border-cosmic-orange/15" />
 
       {/* Background watermark */}
-      <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 select-none font-display text-[clamp(100px,20vw,280px)] font-800 leading-none text-mission-white/[0.03]">
+      <div className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 select-none font-display text-[clamp(100px,20vw,280px)] font-extrabold leading-none text-mission-white/[0.03]">
         CREW
       </div>
 
@@ -62,13 +60,13 @@ export default function CrewProgram() {
         <ScrollReveal>
           <div className="max-w-2xl">
             <div className="flex items-center gap-3">
-              <span className="bg-cosmic-orange px-3 py-1 font-mono text-[10px] font-700 tracking-[0.3em] text-dark-bg">
+              <span className="bg-cosmic-orange px-3 py-1 font-mono text-[10px] font-bold tracking-[0.3em] text-dark-bg">
                 CREW PROGRAM
               </span>
               <div className="h-px flex-1 bg-mission-white/10" />
             </div>
 
-            <h2 className="mt-8 font-display text-4xl font-800 uppercase leading-[0.9] tracking-tight text-mission-white md:text-6xl lg:text-7xl">
+            <h2 className="mt-8 font-display text-3xl font-extrabold uppercase leading-[0.9] tracking-tight text-mission-white md:text-6xl lg:text-7xl">
               YOU DON&rsquo;T
               <br />
               JUST ORDER.
@@ -91,7 +89,7 @@ export default function CrewProgram() {
               <div className="group relative h-full border border-light-purple/40 bg-light-purple/15 p-7 transition-all duration-300 hover:border-cosmic-orange/40 hover:bg-light-purple/25 md:p-8">
                 {/* Rank badge */}
                 <div className="absolute -top-4 left-6 flex items-center gap-2 bg-cosmic-orange px-4 py-1.5">
-                  <span className="font-mono text-[10px] font-700 tracking-[0.25em] text-dark-bg">
+                  <span className="font-mono text-[10px] font-bold tracking-[0.25em] text-dark-bg">
                     RANK {tier.ordinal}
                   </span>
                 </div>
@@ -101,7 +99,7 @@ export default function CrewProgram() {
                   {tier.icon}
                 </div>
 
-                <h3 className="mt-5 font-display text-2xl font-800 uppercase tracking-tight text-mission-white md:text-3xl">
+                <h3 className="mt-5 font-display text-2xl font-extrabold uppercase tracking-tight text-mission-white md:text-3xl">
                   {tier.rank}
                 </h3>
                 <p className="mt-1 font-mono text-[11px] tracking-[0.15em] text-muted-purple/60">
@@ -151,15 +149,15 @@ export default function CrewProgram() {
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/menu"
-                  className="bg-cosmic-orange px-8 py-3.5 text-center font-display text-xs font-700 uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.3)] hover:brightness-110"
+                  className="bg-cosmic-orange px-8 py-3.5 text-center font-display text-xs font-bold uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.3)] hover:brightness-110"
                 >
                   Begin Your First Mission
                 </Link>
                 <a
-                  href={buildSmartOrderUrl(items)}
+                  href={buildRankEnquiryUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-muted-purple/30 px-8 py-3.5 text-center font-display text-xs font-700 uppercase tracking-[0.15em] text-muted-purple transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange"
+                  className="border border-muted-purple/30 px-8 py-3.5 text-center font-display text-xs font-bold uppercase tracking-[0.15em] text-muted-purple transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange"
                 >
                   Already Crew? Check Rank
                 </a>

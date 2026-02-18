@@ -135,7 +135,7 @@ export default function Navbar() {
                   initial={{ scale: 0.5 }}
                   animate={{ scale: 1 }}
                   transition={{ duration: 0.2, ease: 'easeOut' }}
-                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center bg-cosmic-orange font-mono text-[10px] font-700 text-dark-bg"
+                  className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center bg-cosmic-orange font-mono text-[10px] font-bold text-dark-bg"
                 >
                   {totalItems}
                 </motion.span>
@@ -147,7 +147,7 @@ export default function Navbar() {
               href={buildSmartOrderUrl(items)}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-700 uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"
+              className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"
             >
               Order Now
             </a>

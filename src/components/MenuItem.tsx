@@ -20,7 +20,7 @@ function BadgeTags({ item }: { item: MenuItemType }) {
   return (
     <>
       {isTopMission && (
-        <span className="flex items-center gap-1 bg-cosmic-orange px-2.5 py-0.5 font-mono text-[10px] font-700 tracking-wider text-dark-bg">
+        <span className="flex items-center gap-1 bg-cosmic-orange px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-wider text-dark-bg">
           <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
             <path d="M5 0l1.5 3.5L10 4l-2.5 2.5L8 10 5 8l-3 2 .5-3.5L0 4l3.5-.5z" />
           </svg>
@@ -28,12 +28,12 @@ function BadgeTags({ item }: { item: MenuItemType }) {
         </span>
       )}
       {isBestSelling && (
-        <span className="border border-cosmic-orange/70 bg-cosmic-orange/10 px-2.5 py-0.5 font-mono text-[10px] font-700 tracking-wider text-cosmic-orange">
+        <span className="border border-cosmic-orange/70 bg-cosmic-orange/10 px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-wider text-cosmic-orange">
           BEST SELLING
         </span>
       )}
       {isLimited && (
-        <span className="border border-warning-yellow/70 bg-warning-yellow/10 px-2.5 py-0.5 font-mono text-[10px] font-700 tracking-wider text-warning-yellow">
+        <span className="border border-warning-yellow/70 bg-warning-yellow/10 px-2.5 py-0.5 font-mono text-[10px] font-bold tracking-wider text-warning-yellow">
           LIMITED CLEARANCE
         </span>
       )}
@@ -65,7 +65,7 @@ function ItemControls({ item, sectorName, sectorCode }: MenuItemProps) {
           >
             −
           </button>
-          <span className="flex h-9 w-11 items-center justify-center border-y border-light-purple/50 bg-light-purple/10 font-mono text-sm font-700 text-mission-white">
+          <span className="flex h-9 w-11 items-center justify-center border-y border-light-purple/50 bg-light-purple/10 font-mono text-sm font-bold text-mission-white">
             {quantity}
           </span>
           <button
@@ -81,7 +81,7 @@ function ItemControls({ item, sectorName, sectorCode }: MenuItemProps) {
           onClick={handleAdd}
           animate={justAdded ? { scale: [1, 0.95, 1] } : {}}
           transition={{ duration: 0.2 }}
-          className="bg-cosmic-orange/10 border border-cosmic-orange/50 px-5 py-2 font-mono text-xs font-700 uppercase tracking-wider text-cosmic-orange transition-all hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_15px_rgba(255,138,61,0.3)]"
+          className="bg-cosmic-orange/10 border border-cosmic-orange/50 px-5 py-2 font-mono text-xs font-bold uppercase tracking-wider text-cosmic-orange transition-all hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_15px_rgba(255,138,61,0.3)]"
         >
           + Add
         </motion.button>
@@ -110,7 +110,7 @@ export default function MenuItem({ item, sectorName, sectorCode }: MenuItemProps
       <ImageCarousel images={item.images ?? []} alt={item.name} />
       <div className="flex flex-1 flex-col px-4 py-4">
         <div className="flex flex-wrap items-center gap-2">
-          <h4 className="font-display text-sm font-700 uppercase tracking-tight text-mission-white sm:text-base">
+          <h4 className="font-display text-sm font-bold uppercase tracking-tight text-mission-white sm:text-base">
             {item.name}
           </h4>
           <BadgeTags item={item} />

@@ -237,6 +237,25 @@ body {
   animation-play-state: paused;
 }
 
+@keyframes marquee-half {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track-half {
+  display: flex;
+  width: max-content;
+  animation: marquee-half 40s linear infinite;
+}
+
+.ticker-track-half:hover {
+  animation-play-state: paused;
+}
+
 /* Cart add ripple */
 @keyframes cartRipple {
   0% {

@@ -30,7 +30,7 @@ export default function SectorBlock({ sector, index, hideHeader }: SectorBlockPr
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h3 className="mt-3 font-display text-3xl font-800 uppercase tracking-tight text-mission-white md:text-4xl">
+            <h3 className="mt-3 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
               {sector.name}
             </h3>
             <div className="mt-1 flex items-center gap-3">

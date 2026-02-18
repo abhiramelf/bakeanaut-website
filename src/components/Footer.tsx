@@ -24,12 +24,12 @@ export default function Footer() {
 
         {/* Info */}
         <div className="space-y-3 text-sm text-muted-purple">
-          <p className="font-mono text-xs font-700 tracking-[0.2em] text-cosmic-orange">
+          <p className="font-mono text-xs font-bold tracking-[0.2em] text-cosmic-orange">
             HQ COORDINATES
           </p>
           <p className="text-muted-purple/80">Near Manacaud P.O., Thiruvananthapuram, 695009</p>
           <div className="space-y-1 pt-3">
-            <p className="font-mono text-xs font-700 tracking-[0.2em] text-mission-white/60">OPERATIONAL HOURS</p>
+            <p className="font-mono text-xs font-bold tracking-[0.2em] text-mission-white/60">OPERATIONAL HOURS</p>
             <p className="text-muted-purple/80">Mon–Thu: 11AM–9PM</p>
             <p className="text-muted-purple/80">Fri–Sat: 11AM–10PM</p>
             <p className="text-muted-purple/80">Sun: 12PM–8PM</p>
@@ -54,20 +54,20 @@ export default function Footer() {
 
         {/* Legal */}
         <div className="space-y-3 text-sm">
-          <p className="font-mono text-xs font-700 tracking-[0.2em] text-cosmic-orange">
+          <p className="font-mono text-xs font-bold tracking-[0.2em] text-cosmic-orange">
             LEGAL
           </p>
           <div className="flex flex-col gap-2.5">
-            <a href="#" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
+            <a href="/terms" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
               Terms
             </a>
-            <a href="#" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
+            <a href="/privacy" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
               Privacy
             </a>
-            <a href="#" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
+            <a href="/return-refund" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
               Return &amp; Refund
             </a>
-            <a href="#" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
+            <a href="/shipping" className="text-muted-purple/80 transition-colors hover:text-cosmic-orange">
               Shipping
             </a>
           </div>

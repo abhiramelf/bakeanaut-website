@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
 import CartItemRow from './CartItem'
@@ -10,11 +10,24 @@ interface CartDrawerProps {
   onClose: () => void
 }
 
+function useIsMobile() {
+  return useSyncExternalStore(
+    (callback) => {
+      const mq = window.matchMedia('(max-width: 767px)')
+      mq.addEventListener('change', callback)
+      return () => mq.removeEventListener('change', callback)
+    },
+    () => window.matchMedia('(max-width: 767px)').matches,
+    () => false,
+  )
+}
+
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, totalItems, clearCart, generateWhatsAppUrl } = useCart()
   const shouldReduceMotion = useReducedMotion()
   const drawerRef = useRef<HTMLDivElement>(null)
   const [confirmClear, setConfirmClear] = useState(false)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     if (!isOpen) return
@@ -43,6 +56,24 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     }
   }
 
+  const duration = shouldReduceMotion ? 0 : 0.25
+  const ease: [number, number, number, number] = [0.25, 0, 0.25, 1]
+
+  // Mobile: slide from bottom. Desktop: slide from right.
+  const mobileVariants = {
+    initial: { y: '100%' },
+    animate: { y: 0 },
+    exit: { y: '100%' },
+  }
+
+  const desktopVariants = {
+    initial: { x: '100%' },
+    animate: { x: 0 },
+    exit: { x: '100%' },
+  }
+
+  const variants = isMobile ? mobileVariants : desktopVariants
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -51,7 +82,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+            transition={{ duration }}
             className="fixed inset-0 z-40 bg-dark-bg/85 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
@@ -63,21 +94,29 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             aria-modal="true"
             aria-label="Mission Payload - Cart"
             tabIndex={-1}
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{
-              duration: shouldReduceMotion ? 0 : 0.25,
-              ease: [0.25, 0, 0.25, 1],
-            }}
-            className="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-light-purple/30 bg-deep-space shadow-[-10px_0_40px_rgba(0,0,0,0.5)]"
+            initial={variants.initial}
+            animate={variants.animate}
+            exit={variants.exit}
+            transition={{ duration, ease }}
+            className={
+              isMobile
+                ? 'fixed inset-x-0 bottom-0 z-50 flex max-h-[85vh] flex-col border-t border-light-purple/30 bg-deep-space shadow-[0_-10px_40px_rgba(0,0,0,0.5)]'
+                : 'fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-light-purple/30 bg-deep-space shadow-[-10px_0_40px_rgba(0,0,0,0.5)]'
+            }
           >
+            {/* Drag handle for mobile */}
+            {isMobile && (
+              <div className="flex justify-center pb-1 pt-3">
+                <div className="h-1 w-10 bg-muted-purple/40" />
+              </div>
+            )}
+
             {/* Header */}
             <div className="flex items-center justify-between border-b border-light-purple/30 px-6 py-5">
               <div>
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 bg-cosmic-orange" />
-                  <h2 className="font-display text-lg font-700 uppercase tracking-tight text-mission-white">
+                  <h2 className="font-display text-lg font-bold uppercase tracking-tight text-mission-white">
                     Mission Payload
                   </h2>
                 </div>
@@ -118,7 +157,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
             {/* Footer */}
             {items.length > 0 && (
-              <div className="border-t border-light-purple/30 px-6 py-5">
+              <div className="border-t border-light-purple/30 px-6 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0.5rem))]">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-purple">
                     SUBTOTAL
@@ -132,7 +171,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   href={generateWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block w-full bg-cosmic-orange py-4 text-center font-display text-sm font-700 uppercase tracking-[0.2em] text-dark-bg transition-all hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
+                  className="block w-full bg-cosmic-orange py-4 text-center font-display text-sm font-bold uppercase tracking-[0.2em] text-dark-bg transition-all hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
                 >
                   Launch Order on WhatsApp
                 </a>

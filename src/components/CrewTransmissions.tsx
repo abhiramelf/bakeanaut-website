@@ -112,7 +112,7 @@ export default function CrewTransmissions() {
           <div className="mt-12 flex flex-col items-center gap-5 sm:flex-row sm:justify-center sm:gap-8">
             {/* Stars + score */}
             <div className="flex items-center gap-3">
-              <span className="font-display text-5xl font-800 text-mission-white">
+              <span className="font-display text-5xl font-extrabold text-mission-white">
                 5.0
               </span>
               <div className="flex flex-col gap-1">
@@ -154,11 +154,11 @@ export default function CrewTransmissions() {
                 &ldquo;{reviews[0].text}&rdquo;
               </blockquote>
               <div className="mt-5 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center bg-cosmic-orange font-display text-sm font-700 text-dark-bg">
+                <div className="flex h-8 w-8 items-center justify-center bg-cosmic-orange font-display text-sm font-bold text-dark-bg">
                   {reviews[0].name[0]}
                 </div>
                 <div>
-                  <p className="font-display text-sm font-600 uppercase tracking-wide text-mission-white">
+                  <p className="font-display text-sm font-semibold uppercase tracking-wide text-mission-white">
                     {reviews[0].name}
                   </p>
                 </div>
@@ -182,10 +182,10 @@ export default function CrewTransmissions() {
                 &ldquo;{reviews[5].text}&rdquo;
               </blockquote>
               <div className="mt-5 flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center bg-cosmic-orange font-display text-sm font-700 text-dark-bg">
+                <div className="flex h-8 w-8 items-center justify-center bg-cosmic-orange font-display text-sm font-bold text-dark-bg">
                   {reviews[5].name[0]}
                 </div>
-                <p className="font-display text-sm font-600 uppercase tracking-wide text-mission-white">
+                <p className="font-display text-sm font-semibold uppercase tracking-wide text-mission-white">
                   {reviews[5].name}
                 </p>
               </div>
@@ -208,10 +208,10 @@ export default function CrewTransmissions() {
                   &ldquo;{reviews[idx].text}&rdquo;
                 </blockquote>
                 <div className="mt-4 flex items-center gap-3">
-                  <div className="flex h-7 w-7 items-center justify-center bg-light-purple font-display text-xs font-700 text-cookie-tan">
+                  <div className="flex h-7 w-7 items-center justify-center bg-light-purple font-display text-xs font-bold text-cookie-tan">
                     {reviews[idx].name[0]}
                   </div>
-                  <p className="font-display text-xs font-600 uppercase tracking-wide text-muted-purple">
+                  <p className="font-display text-xs font-semibold uppercase tracking-wide text-muted-purple">
                     {reviews[idx].name}
                   </p>
                 </div>
@@ -229,10 +229,10 @@ export default function CrewTransmissions() {
                 &ldquo;{reviews[6].text}&rdquo;
               </blockquote>
               <div className="mt-4 flex items-center gap-3">
-                <div className="flex h-7 w-7 items-center justify-center bg-light-purple font-display text-xs font-700 text-cookie-tan">
+                <div className="flex h-7 w-7 items-center justify-center bg-light-purple font-display text-xs font-bold text-cookie-tan">
                   {reviews[6].name[0]}
                 </div>
-                <p className="font-display text-xs font-600 uppercase tracking-wide text-muted-purple">
+                <p className="font-display text-xs font-semibold uppercase tracking-wide text-muted-purple">
                   {reviews[6].name}
                 </p>
               </div>

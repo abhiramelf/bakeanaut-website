@@ -35,7 +35,7 @@ export default function BundleCard({ bundle }: BundleCardProps) {
       <span className="font-mono text-[10px] tracking-[0.3em] text-warning-yellow">
         RECOMMENDED FLIGHT PLAN
       </span>
-      <h4 className="mt-3 font-display text-xl font-700 uppercase tracking-tight text-mission-white">
+      <h4 className="mt-3 font-display text-xl font-bold uppercase tracking-tight text-mission-white">
         {bundle.name}
       </h4>
       <p className="mt-2 font-body text-sm text-muted-purple">
@@ -44,7 +44,7 @@ export default function BundleCard({ bundle }: BundleCardProps) {
       <p className="mt-2 font-mono text-xs text-cookie-tan/70">Ask crew for pricing</p>
       <button
         onClick={handleAdd}
-        className="mt-5 w-full border border-cosmic-orange/50 bg-cosmic-orange/10 py-2.5 font-mono text-xs font-700 uppercase tracking-wider text-cosmic-orange transition-all hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_15px_rgba(255,138,61,0.3)]"
+        className="mt-5 w-full border border-cosmic-orange/50 bg-cosmic-orange/10 py-2.5 font-mono text-xs font-bold uppercase tracking-wider text-cosmic-orange transition-all hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_15px_rgba(255,138,61,0.3)]"
       >
         Add Bundle
       </button>

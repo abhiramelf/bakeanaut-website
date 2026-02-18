@@ -1,7 +1,8 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Syne, Space_Grotesk, Space_Mono } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/hooks/useCart'
+import CartToast from '@/components/CartToast'
 
 const syne = Syne({
   variable: '--font-syne',
@@ -25,6 +26,10 @@ const spaceMono = Space_Mono({
   weight: ['400', '700'],
   display: 'swap',
 })
+
+export const viewport: Viewport = {
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   title: 'Bakeanaut — Edible Missions. Cleared for Launch.',
@@ -120,7 +125,10 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <CartToast />
+          {children}
+        </CartProvider>
       </body>
     </html>
   )

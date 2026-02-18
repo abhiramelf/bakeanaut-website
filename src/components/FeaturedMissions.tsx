@@ -21,7 +21,7 @@ export default function FeaturedMissions() {
             <p className="font-mono text-xs tracking-[0.4em] text-cosmic-orange">
               TOP MISSIONS
             </p>
-            <h2 className="mt-4 font-display text-5xl font-800 uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
+            <h2 className="mt-4 font-display text-4xl font-extrabold uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
               <TypewriterReveal text="CREW" as="span" />
               <br />
               <TypewriterReveal text="FAVORITES" as="span" className="text-cosmic-orange text-glow-orange" staggerRate={0.04} />
@@ -56,7 +56,7 @@ export default function FeaturedMissions() {
           <div className="mt-16 flex justify-center">
             <Link
               href="/menu"
-              className="group border-2 border-cosmic-orange px-10 py-4 font-display text-sm font-700 uppercase tracking-[0.15em] text-cosmic-orange transition-all duration-200 hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_30px_rgba(255,138,61,0.3)]"
+              className="group border-2 border-cosmic-orange px-10 py-4 font-display text-sm font-bold uppercase tracking-[0.15em] text-cosmic-orange transition-all duration-200 hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_30px_rgba(255,138,61,0.3)]"
             >
               View All Missions
               <span className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">

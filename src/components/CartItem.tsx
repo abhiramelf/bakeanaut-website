@@ -13,7 +13,7 @@ export default function CartItem({ item }: CartItemProps) {
   return (
     <div className="flex items-start justify-between gap-3 border-b border-light-purple py-3">
       <div className="flex-1">
-        <p className="font-display text-sm font-700 uppercase tracking-tight text-mission-white">
+        <p className="font-display text-sm font-bold uppercase tracking-tight text-mission-white">
           {item.menuItem.name}
         </p>
         <p className="font-mono text-[10px] tracking-wider text-muted-purple">

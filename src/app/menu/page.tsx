@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import MenuPageContent from '@/components/MenuPageContent'
 import Footer from '@/components/Footer'
+import ErrorBoundary from '@/components/ErrorBoundary'
 
 export const metadata: Metadata = {
   title: 'Active Missions — Bakeanaut',
@@ -13,7 +14,9 @@ export default function MenuPage() {
   return (
     <main>
       <Navbar />
-      <MenuPageContent />
+      <ErrorBoundary>
+        <MenuPageContent />
+      </ErrorBoundary>
       <Footer />
     </main>
   )

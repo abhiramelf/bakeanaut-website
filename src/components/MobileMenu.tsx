@@ -86,7 +86,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     key={link.href}
                     href={link.href}
                     onClick={handleNavClick}
-                    className="border-b border-light-purple py-4 font-display text-lg font-700 uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
+                    className="border-b border-light-purple py-4 font-display text-lg font-bold uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
                   >
                     {link.label}
                   </Link>
@@ -95,7 +95,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                     key={link.href}
                     href={link.href}
                     onClick={handleNavClick}
-                    className="border-b border-light-purple py-4 font-display text-lg font-700 uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
+                    className="border-b border-light-purple py-4 font-display text-lg font-bold uppercase tracking-widest text-mission-white transition-colors hover:text-cosmic-orange"
                   >
                     {link.label}
                   </a>
@@ -108,7 +108,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                 href={buildSmartOrderUrl(items)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full bg-cosmic-orange py-3 text-center font-display text-sm font-700 uppercase tracking-widest text-dark-bg transition-colors hover:brightness-110"
+                className="block w-full bg-cosmic-orange py-3 text-center font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-colors hover:brightness-110"
               >
                 Order Now
               </a>

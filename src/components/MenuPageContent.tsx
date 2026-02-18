@@ -28,7 +28,7 @@ export default function MenuPageContent() {
             as="p"
             className="mt-6 font-mono text-xs tracking-[0.4em] text-cosmic-orange"
           />
-          <h1 className="mt-3 font-display text-5xl font-800 uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
+          <h1 className="mt-3 font-display text-5xl font-extrabold uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
             FULL
             <br />
             <span className="text-cosmic-orange text-glow-orange">CATALOG</span>
@@ -45,7 +45,7 @@ export default function MenuPageContent() {
         className="overflow-hidden border-y border-light-purple/20 bg-deep-space/80"
         aria-hidden="true"
       >
-        <div className="ticker-track font-mono py-2.5 text-[10px] tracking-[0.15em] text-muted-purple/50">
+        <div className="ticker-track-half font-mono py-2.5 text-[10px] tracking-[0.15em] text-muted-purple/50">
           {[0, 1].map((copy) => (
             <span key={copy} className="flex shrink-0 items-center">
               {[
@@ -84,14 +84,14 @@ export default function MenuPageContent() {
             <div className="absolute -left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-warning-yellow/60 via-warning-yellow/20 to-transparent" />
             <ScrollReveal direction="left">
               <div className="flex items-center gap-3">
-                <span className="bg-warning-yellow px-3 py-1 font-mono text-[10px] font-700 tracking-[0.3em] text-dark-bg">
+                <span className="bg-warning-yellow px-3 py-1 font-mono text-[10px] font-bold tracking-[0.3em] text-dark-bg">
                   CLASSIFIED
                 </span>
                 <div className="h-px flex-1 bg-warning-yellow/30" />
               </div>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <h3 className="mt-5 font-display text-3xl font-800 uppercase tracking-tight text-mission-white md:text-4xl">
+              <h3 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
                 {specialPayloads.name}
               </h3>
               <p className="mt-2 font-body text-sm italic text-cookie-tan md:text-base">
@@ -117,12 +117,12 @@ export default function MenuPageContent() {
           <div id="bundles" className="relative">
             <ScrollReveal>
               <div className="flex items-center gap-3">
-                <span className="border border-cosmic-orange px-3 py-1 font-mono text-[10px] font-700 tracking-[0.3em] text-cosmic-orange">
+                <span className="border border-cosmic-orange px-3 py-1 font-mono text-[10px] font-bold tracking-[0.3em] text-cosmic-orange">
                   FLIGHT PLANS
                 </span>
                 <div className="h-px flex-1 bg-cosmic-orange/30" />
               </div>
-              <h3 className="mt-5 font-display text-3xl font-800 uppercase tracking-tight text-mission-white md:text-4xl">
+              <h3 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
                 RECOMMENDED <span className="text-cosmic-orange">BUNDLES</span>
               </h3>
               <p className="mt-2 font-body text-sm text-muted-purple md:text-base">

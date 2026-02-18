@@ -134,14 +134,14 @@ export default function BrandIntro() {
                 <div className="absolute inset-x-0 top-0 h-[3px] bg-cosmic-orange" />
 
                 {/* Large number watermark */}
-                <span className="absolute right-4 top-2 font-display text-[80px] font-800 leading-none text-light-purple/20 transition-colors duration-300 group-hover:text-cosmic-orange/10">
+                <span className="absolute right-4 top-2 font-display text-[80px] font-extrabold leading-none text-light-purple/20 transition-colors duration-300 group-hover:text-cosmic-orange/10">
                   {card.number}
                 </span>
 
                 <span className="relative font-mono text-[10px] tracking-[0.3em] text-muted-purple">
                   PROTOCOL {card.number}
                 </span>
-                <h3 className="relative mt-4 font-display text-2xl font-800 uppercase tracking-tight text-mission-white md:text-3xl">
+                <h3 className="relative mt-4 font-display text-2xl font-extrabold uppercase tracking-tight text-mission-white md:text-3xl">
                   {card.title}
                 </h3>
                 <p className="relative mt-3 font-body text-sm leading-relaxed text-muted-purple md:text-base">

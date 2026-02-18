@@ -38,3 +38,15 @@ export function buildSmartOrderUrl(items: CartItem[]): string {
   }
   return buildDirectOrderUrl()
 }
+
+export function buildRankEnquiryUrl(): string {
+  const message = `🛰️ Hey Bakeanaut! I'd like to check my crew rank and mission history.
+
+My details:
+Name:
+Phone:
+Order number (if available):
+
+Requesting rank status update. 🚀`
+  return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
+}
