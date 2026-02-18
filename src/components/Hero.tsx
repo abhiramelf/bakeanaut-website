@@ -85,36 +85,6 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Mobile mission briefing card — fills the gap on small screens */}
-      <motion.div
-        variants={slideUp(0.3)}
-        initial="hidden"
-        animate="visible"
-        className="relative z-10 mx-6 mt-8 border border-muted-purple/25 p-5 font-mono lg:hidden"
-      >
-        <div className="mb-3 text-[10px] tracking-[0.25em] text-cosmic-orange">
-          MISSION BRIEFING
-        </div>
-        <div className="space-y-1.5 text-[11px] tracking-[0.15em] text-muted-purple/80">
-          <div className="flex justify-between">
-            <span>LOCATION</span>
-            <span className="text-cookie-tan">TVM, KERALA</span>
-          </div>
-          <div className="flex justify-between">
-            <span>STATUS</span>
-            <span className="text-cookie-tan">OPERATIONAL</span>
-          </div>
-          <div className="flex justify-between">
-            <span>SECTORS</span>
-            <span className="text-cookie-tan">7 ACTIVE</span>
-          </div>
-          <div className="flex justify-between">
-            <span>CLEARANCE</span>
-            <span className="text-cookie-tan">OPEN</span>
-          </div>
-        </div>
-      </motion.div>
-
       <div className="relative z-10 mx-auto w-full max-w-[1280px]">
         {/* Headline — left-aligned, massive, with second line indented */}
         <motion.h1
