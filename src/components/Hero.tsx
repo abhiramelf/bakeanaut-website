@@ -57,8 +57,13 @@ export default function Hero() {
     >
       <StarField />
 
-      {/* Stamps */}
-      <div className="stamp right-8 top-28 hidden lg:block">CLASSIFIED</div>
+      {/* Stamps — scattered across the hero background */}
+      <div className="stamp right-8 top-24 hidden lg:block" style={{ transform: 'rotate(-12deg)' }}>CLASSIFIED</div>
+      <div className="stamp left-[5%] top-[38%] hidden lg:block" style={{ transform: 'rotate(6deg)' }}>TOP SECRET</div>
+      <div className="stamp right-[15%] top-[55%] hidden lg:block" style={{ transform: 'rotate(-4deg)' }}>FRAGILE</div>
+      <div className="stamp-solid left-[12%] bottom-[22%] hidden xl:block" style={{ transform: 'rotate(-8deg)' }}>HANDLE WITH CARE</div>
+      <div className="stamp-solid right-[30%] top-[30%] hidden xl:block" style={{ transform: 'rotate(10deg)' }}>CLEARANCE GRANTED</div>
+      <div className="stamp left-[45%] top-[20%] hidden 2xl:block" style={{ transform: 'rotate(3deg)' }}>DO NOT OPEN</div>
 
       {/* Mission ticker */}
       <motion.div
@@ -79,6 +84,36 @@ export default function Hero() {
         </div>
       </motion.div>
 
+      {/* Mobile mission briefing card — fills the gap on small screens */}
+      <motion.div
+        variants={slideUp(0.3)}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 mx-6 mt-8 border border-muted-purple/25 p-5 font-mono lg:hidden"
+      >
+        <div className="mb-3 text-[10px] tracking-[0.25em] text-cosmic-orange">
+          MISSION BRIEFING
+        </div>
+        <div className="space-y-1.5 text-[11px] tracking-[0.15em] text-muted-purple/80">
+          <div className="flex justify-between">
+            <span>LOCATION</span>
+            <span className="text-cookie-tan">TVM, KERALA</span>
+          </div>
+          <div className="flex justify-between">
+            <span>STATUS</span>
+            <span className="text-cookie-tan">OPERATIONAL</span>
+          </div>
+          <div className="flex justify-between">
+            <span>SECTORS</span>
+            <span className="text-cookie-tan">7 ACTIVE</span>
+          </div>
+          <div className="flex justify-between">
+            <span>CLEARANCE</span>
+            <span className="text-cookie-tan">OPEN</span>
+          </div>
+        </div>
+      </motion.div>
+
       <div className="relative z-10 mx-auto w-full max-w-[1280px]">
         {/* Headline — left-aligned, massive, with second line indented */}
         <motion.h1
@@ -87,16 +122,16 @@ export default function Hero() {
           animate="visible"
           className="font-display font-800 uppercase leading-[0.85] tracking-tighter text-glow-white"
         >
-          <span className="block text-[clamp(3rem,12vw,10rem)]">
+          <span className="block text-[clamp(3.5rem,12vw,10rem)]">
             EDIBLE
           </span>
-          <span className="block text-[clamp(3rem,12vw,10rem)] pl-[12vw]">
+          <span className="block text-[clamp(3.5rem,12vw,10rem)] pl-[12vw]">
             MISSIONS.
           </span>
-          <span className="block text-[clamp(3rem,12vw,10rem)]">
+          <span className="block text-[clamp(3.5rem,12vw,10rem)]">
             CLEARED FOR
           </span>
-          <span className="block text-[clamp(3rem,12vw,10rem)] pl-[12vw] text-cosmic-orange text-glow-orange">
+          <span className="block text-[clamp(3.5rem,12vw,10rem)] pl-[12vw] text-cosmic-orange text-glow-orange">
             LAUNCH.
           </span>
         </motion.h1>

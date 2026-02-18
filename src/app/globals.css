@@ -142,7 +142,7 @@ body {
   text-shadow: 0 0 60px rgba(255, 255, 255, 0.15), 0 0 120px rgba(255, 255, 255, 0.05);
 }
 
-/* Classified stamp */
+/* Classified stamps */
 .stamp {
   position: absolute;
   font-family: var(--font-mono), monospace;
@@ -153,8 +153,22 @@ body {
   color: var(--cosmic-orange);
   border: 2px dashed var(--cosmic-orange);
   padding: 0.35rem 1rem;
-  transform: rotate(-12deg);
-  opacity: 0.2;
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
+}
+
+.stamp-solid {
+  position: absolute;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-purple);
+  border: 1.5px solid var(--muted-purple);
+  padding: 0.25rem 0.75rem;
+  opacity: 0.15;
   pointer-events: none;
   user-select: none;
 }
