@@ -133,6 +133,26 @@ body {
   }
 }
 
+/* Star twinkle animations */
+@keyframes twinkle1 {
+  0%, 100% { opacity: var(--star-opacity); }
+  50% { opacity: 0.1; }
+}
+@keyframes twinkle2 {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: var(--star-opacity); }
+}
+@keyframes twinkle3 {
+  0%, 100% { opacity: var(--star-opacity); }
+  30% { opacity: 0.05; }
+  70% { opacity: var(--star-opacity); }
+}
+@keyframes twinkle4 {
+  0%, 100% { opacity: 0.15; }
+  40% { opacity: var(--star-opacity); }
+  80% { opacity: 0.1; }
+}
+
 /* Glow effects */
 .text-glow-orange {
   text-shadow: 0 0 40px rgba(255, 138, 61, 0.3), 0 0 80px rgba(255, 138, 61, 0.1);
@@ -153,7 +173,7 @@ body {
   color: var(--cosmic-orange);
   border: 2px dashed var(--cosmic-orange);
   padding: 0.35rem 1rem;
-  opacity: 0.12;
+  opacity: 0.20;
   pointer-events: none;
   user-select: none;
 }
@@ -168,7 +188,7 @@ body {
   color: var(--muted-purple);
   border: 1.5px solid var(--muted-purple);
   padding: 0.25rem 0.75rem;
-  opacity: 0.15;
+  opacity: 0.22;
   pointer-events: none;
   user-select: none;
 }
@@ -215,6 +235,27 @@ body {
 
 .ticker-track:hover {
   animation-play-state: paused;
+}
+
+/* Cart add ripple */
+@keyframes cartRipple {
+  0% {
+    transform: scale(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.cart-ripple {
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--cosmic-orange);
+  border-radius: 50%;
+  animation: cartRipple 0.6s ease-out forwards;
+  pointer-events: none;
 }
 
 /* Reduced motion */

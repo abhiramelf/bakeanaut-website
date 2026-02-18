@@ -21,6 +21,7 @@ type CartAction =
 
 interface CartState {
   items: CartItem[]
+  addCount: number
 }
 
 function cartReducer(state: CartState, action: CartAction): CartState {
@@ -31,6 +32,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       )
       if (existing) {
         return {
+          ...state,
+          addCount: state.addCount + 1,
           items: state.items.map((item) =>
             item.menuItem.id === action.payload.menuItem.id
               ? { ...item, quantity: item.quantity + 1 }
@@ -39,6 +42,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         }
       }
       return {
+        ...state,
+        addCount: state.addCount + 1,
         items: [
           ...state.items,
           {
@@ -52,17 +57,20 @@ function cartReducer(state: CartState, action: CartAction): CartState {
     }
     case 'REMOVE_ITEM':
       return {
+        ...state,
         items: state.items.filter((item) => item.menuItem.id !== action.payload.id),
       }
     case 'UPDATE_QUANTITY': {
       if (action.payload.quantity <= 0) {
         return {
+          ...state,
           items: state.items.filter(
             (item) => item.menuItem.id !== action.payload.id
           ),
         }
       }
       return {
+        ...state,
         items: state.items.map((item) =>
           item.menuItem.id === action.payload.id
             ? { ...item, quantity: action.payload.quantity }
@@ -71,9 +79,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       }
     }
     case 'CLEAR_CART':
-      return { items: [] }
+      return { ...state, items: [] }
     case 'RESTORE':
-      return { items: action.payload }
+      return { ...state, items: action.payload }
     default:
       return state
   }
@@ -86,6 +94,7 @@ interface CartContextValue {
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
   totalItems: number
+  addCount: number
   generateWhatsAppUrl: () => string
 }
 
@@ -94,7 +103,7 @@ const CartContext = createContext<CartContextValue | null>(null)
 const STORAGE_KEY = 'bakeanaut-cart'
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, { items: [] })
+  const [state, dispatch] = useReducer(cartReducer, { items: [], addCount: 0 })
 
   // Restore from localStorage on mount
   useEffect(() => {
@@ -155,6 +164,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         updateQuantity,
         clearCart,
         totalItems,
+        addCount: state.addCount,
         generateWhatsAppUrl,
       },
     },

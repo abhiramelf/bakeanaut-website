@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import ScrollReveal from './ScrollReveal'
+import TypewriterReveal from './TypewriterReveal'
 
 const galleryItems = [
   { id: 1, name: '', code: '', src: '/images/gallery/IMG_2004.png', tall: true },
@@ -22,9 +23,11 @@ export default function Gallery() {
         <ScrollReveal>
           <div className="flex items-start justify-between">
             <div>
-              <p className="font-mono text-xs tracking-[0.4em] text-cosmic-orange">
-                MISSION ARCHIVE
-              </p>
+              <TypewriterReveal
+                text="MISSION ARCHIVE"
+                as="p"
+                className="font-mono text-xs tracking-[0.4em] text-cosmic-orange"
+              />
               <h2 className="mt-4 font-display text-4xl font-800 uppercase tracking-tight text-glow-white md:text-6xl lg:text-7xl">
                 FIELD
                 <br />

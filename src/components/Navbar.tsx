@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -21,9 +21,26 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
-  const { totalItems, items } = useCart()
+  const { totalItems, items, addCount } = useCart()
+  const cartButtonRef = useRef<HTMLButtonElement>(null)
   const activeSection = useScrollSpy(['hero', 'about', 'gallery', 'menu'])
   const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (addCount === 0 || shouldReduceMotion) return
+    const btn = cartButtonRef.current
+    if (!btn) return
+    const ripple = document.createElement('span')
+    ripple.className = 'cart-ripple'
+    btn.appendChild(ripple)
+    const timeout = setTimeout(() => {
+      ripple.remove()
+    }, 700)
+    return () => {
+      clearTimeout(timeout)
+      ripple.remove()
+    }
+  }, [addCount, shouldReduceMotion])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,6 +119,7 @@ export default function Navbar() {
           <div className="ml-auto flex items-center gap-5 md:ml-0">
             {/* Cart button */}
             <button
+              ref={cartButtonRef}
               onClick={openCart}
               className="relative flex h-10 w-10 items-center justify-center text-mission-white transition-colors hover:text-cosmic-orange"
               aria-label={`Cart - ${totalItems} items`}

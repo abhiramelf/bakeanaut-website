@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import StarField from './StarField'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import { useCart } from '@/hooks/useCart'
@@ -39,6 +40,15 @@ function TickerContent() {
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
   const { items } = useCart()
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const starFieldY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 120])
+  const stampsY = useTransform(scrollYProgress, [0, 1], shouldReduceMotion ? [0, 0] : [0, 60])
 
   const slideUp = (delay: number) => ({
     hidden: { opacity: 0, y: 40 },
@@ -55,18 +65,21 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
       className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-deep-space px-6 py-24 lg:px-8"
     >
-      <StarField />
+      <motion.div style={{ y: starFieldY }} className="absolute inset-0">
+        <StarField />
+      </motion.div>
 
       {/* Stamps — scattered across the hero background */}
-      <div className="stamp right-8 top-24 hidden lg:block" style={{ transform: 'rotate(-12deg)' }}>CLASSIFIED</div>
-      <div className="stamp left-[5%] top-[38%] hidden lg:block" style={{ transform: 'rotate(6deg)' }}>TOP SECRET</div>
-      <div className="stamp right-[15%] top-[55%] hidden lg:block" style={{ transform: 'rotate(-4deg)' }}>FRAGILE</div>
-      <div className="stamp-solid left-[12%] bottom-[22%] hidden xl:block" style={{ transform: 'rotate(-8deg)' }}>HANDLE WITH CARE</div>
-      <div className="stamp-solid right-[30%] top-[30%] hidden xl:block" style={{ transform: 'rotate(10deg)' }}>CLEARANCE GRANTED</div>
-      <div className="stamp left-[45%] top-[20%] hidden 2xl:block" style={{ transform: 'rotate(3deg)' }}>DO NOT OPEN</div>
+      <motion.div className="stamp right-4 top-20 lg:right-8 lg:top-24" style={{ y: stampsY, rotate: -12 }}>CLASSIFIED</motion.div>
+      <motion.div className="stamp left-[5%] top-[38%] hidden lg:block" style={{ y: stampsY, rotate: 6 }}>TOP SECRET</motion.div>
+      <motion.div className="stamp right-[15%] top-[55%] hidden lg:block" style={{ y: stampsY, rotate: -4 }}>FRAGILE</motion.div>
+      <motion.div className="stamp-solid left-[12%] bottom-[22%] hidden xl:block" style={{ y: stampsY, rotate: -8 }}>HANDLE WITH CARE</motion.div>
+      <motion.div className="stamp-solid right-[30%] top-[30%] hidden xl:block" style={{ y: stampsY, rotate: 10 }}>CLEARANCE GRANTED</motion.div>
+      <motion.div className="stamp left-[45%] top-[20%] hidden 2xl:block" style={{ y: stampsY, rotate: 3 }}>DO NOT OPEN</motion.div>
 
       {/* Mission ticker */}
       <motion.div

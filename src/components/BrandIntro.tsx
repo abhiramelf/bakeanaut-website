@@ -1,3 +1,6 @@
+'use client'
+
+import { motion, useReducedMotion } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
 
 const cards = [
@@ -18,11 +21,99 @@ const cards = [
   },
 ]
 
+const quoteLine1 = 'Every offering exists for a reason.'.split(' ')
+const quoteLine2 = 'Every customer becomes crew.'.split(' ')
+const allWords = [...quoteLine1, '\n', ...quoteLine2]
+
+function QuoteReveal() {
+  const shouldReduceMotion = useReducedMotion()
+
+  if (shouldReduceMotion) {
+    return (
+      <div className="mt-20 text-center">
+        <div className="mx-auto mb-6 h-px w-16 bg-cosmic-orange/40" />
+        <blockquote className="font-body text-xl italic leading-relaxed text-cookie-tan md:text-2xl lg:text-3xl">
+          &ldquo;Every offering exists for a reason.
+          <br />
+          Every customer becomes crew.&rdquo;
+        </blockquote>
+        <div className="mx-auto mt-6 h-px w-16 bg-cosmic-orange/40" />
+      </div>
+    )
+  }
+
+  return (
+    <motion.div
+      className="mt-20 text-center"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.5 }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.08, delayChildren: 0.4 } },
+      }}
+    >
+      {/* Top decorative line */}
+      <motion.div
+        className="mx-auto mb-6 h-px w-16 bg-cosmic-orange/40"
+        variants={{
+          hidden: { scaleX: 0 },
+          visible: { scaleX: 1, transition: { duration: 0.6, ease: 'easeOut' } },
+        }}
+        style={{ originX: 0.5 }}
+      />
+
+      <blockquote className="font-body text-xl italic leading-relaxed text-cookie-tan md:text-2xl lg:text-3xl">
+        <span aria-label="Every offering exists for a reason. Every customer becomes crew.">&ldquo;</span>
+        {allWords.map((word, i) => {
+          if (word === '\n') return <br key={i} />
+          const isLast = i === allWords.length - 1
+          return (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              className="inline-block"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+              }}
+            >
+              {word}{isLast ? '' : '\u00A0'}
+            </motion.span>
+          )
+        })}
+        <motion.span
+          aria-hidden="true"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { duration: 0.3 } },
+          }}
+        >
+          &rdquo;
+        </motion.span>
+      </blockquote>
+
+      {/* Bottom decorative line */}
+      <motion.div
+        className="mx-auto mt-6 h-px w-16 bg-cosmic-orange/40"
+        variants={{
+          hidden: { scaleX: 0 },
+          visible: { scaleX: 1, transition: { duration: 0.6, ease: 'easeOut' } },
+        }}
+        style={{ originX: 0.5 }}
+      />
+    </motion.div>
+  )
+}
+
 export default function BrandIntro() {
   return (
     <section id="about" className="relative overflow-hidden bg-dark-bg px-6 py-28 md:py-36">
       {/* Decorative accent line top */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cosmic-orange/30 to-transparent" />
+
+      {/* Declassified stamp — desktop only */}
+      <div className="stamp-solid right-12 top-20 hidden lg:block" style={{ transform: 'rotate(7deg)' }}>DECLASSIFIED</div>
 
       <div className="mx-auto max-w-[1280px]">
         <ScrollReveal>
@@ -61,17 +152,7 @@ export default function BrandIntro() {
           ))}
         </div>
 
-        <ScrollReveal delay={0.5}>
-          <div className="mt-20 text-center">
-            <div className="mx-auto mb-6 h-px w-16 bg-cosmic-orange/40" />
-            <blockquote className="font-body text-xl italic leading-relaxed text-cookie-tan md:text-2xl lg:text-3xl">
-              &ldquo;Every offering exists for a reason.
-              <br />
-              Every customer becomes crew.&rdquo;
-            </blockquote>
-            <div className="mx-auto mt-6 h-px w-16 bg-cosmic-orange/40" />
-          </div>
-        </ScrollReveal>
+        <QuoteReveal />
       </div>
     </section>
   )

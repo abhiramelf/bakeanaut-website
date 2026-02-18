@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import ScrollReveal from './ScrollReveal'
+import TypewriterReveal from './TypewriterReveal'
 import SectorBlock from './SectorBlock'
 import BundleCard from './BundleCard'
 import SectorNav from './SectorNav'
@@ -22,9 +23,11 @@ export default function MenuPageContent() {
             </svg>
             BACK TO BASE
           </Link>
-          <p className="mt-6 font-mono text-xs tracking-[0.4em] text-cosmic-orange">
-            ACTIVE MISSIONS
-          </p>
+          <TypewriterReveal
+            text="ACTIVE MISSIONS"
+            as="p"
+            className="mt-6 font-mono text-xs tracking-[0.4em] text-cosmic-orange"
+          />
           <h1 className="mt-3 font-display text-5xl font-800 uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
             FULL
             <br />
@@ -34,6 +37,33 @@ export default function MenuPageContent() {
             Limited payload per day &middot; Ask crew about classified drops
           </p>
           <div className="mt-8 h-px w-full bg-gradient-to-r from-cosmic-orange/50 via-light-purple/30 to-transparent" />
+        </div>
+      </div>
+
+      {/* Ambient data stream ticker */}
+      <div
+        className="overflow-hidden border-y border-light-purple/20 bg-deep-space/80"
+        aria-hidden="true"
+      >
+        <div className="ticker-track font-mono py-2.5 text-[10px] tracking-[0.15em] text-muted-purple/50">
+          {[0, 1].map((copy) => (
+            <span key={copy} className="flex shrink-0 items-center">
+              {[
+                'SCANNING SECTORS',
+                'PAYLOAD CAPACITY: LIMITED',
+                'CREW CLEARANCE: ACTIVE',
+                'DAILY MISSIONS UPDATED',
+                'CLASSIFIED DROPS: ASK CREW',
+                'ALL SECTORS NOMINAL',
+              ].map((text, i) => (
+                <span key={i} className="flex shrink-0 items-center gap-6 px-6">
+                  <span>{text}</span>
+                  <span className="text-light-purple/40">{'//'}
+                  </span>
+                </span>
+              ))}
+            </span>
+          ))}
         </div>
       </div>
 

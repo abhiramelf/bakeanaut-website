@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import ScrollReveal from './ScrollReveal'
+import TypewriterReveal from './TypewriterReveal'
 import MenuItem from './MenuItem'
 import { getFeaturedItems } from '@/data/menu'
 
@@ -21,9 +22,9 @@ export default function FeaturedMissions() {
               TOP MISSIONS
             </p>
             <h2 className="mt-4 font-display text-5xl font-800 uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
-              CREW
+              <TypewriterReveal text="CREW" as="span" />
               <br />
-              <span className="text-cosmic-orange text-glow-orange">FAVORITES</span>
+              <TypewriterReveal text="FAVORITES" as="span" className="text-cosmic-orange text-glow-orange" staggerRate={0.04} />
             </h2>
             <p className="mt-6 max-w-md font-body text-base text-muted-purple md:text-lg">
               Our most-requested missions &middot; Crew-approved &middot; Launch-ready
