@@ -1,26 +1,212 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --deep-space-purple: #2B0F45;
+  --cosmic-orange: #FF8A3D;
+  --cookie-tan: #F2C48D;
+  --mission-white: #FFFFFF;
+  --warning-yellow: #FFD84D;
+  --dark-bg: #1A0830;
+  --muted-purple: #8B6FA3;
+  --light-purple: #3D1560;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-deep-space: var(--deep-space-purple);
+  --color-cosmic-orange: var(--cosmic-orange);
+  --color-cookie-tan: var(--cookie-tan);
+  --color-mission-white: var(--mission-white);
+  --color-warning-yellow: var(--warning-yellow);
+  --color-dark-bg: var(--dark-bg);
+  --color-muted-purple: var(--muted-purple);
+  --color-light-purple: var(--light-purple);
+  --font-display: var(--font-syne);
+  --font-body: var(--font-space-grotesk);
+  --font-mono: var(--font-space-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Selection */
+::selection {
+  background: var(--cosmic-orange);
+  color: var(--dark-bg);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--cosmic-orange);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cookie-tan);
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--dark-bg);
+  color: var(--mission-white);
+  font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--cosmic-orange);
+  outline-offset: 2px;
+}
+
+/* Grain texture overlay */
+.grain-overlay::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Animated gradient blobs */
+@keyframes blobPulse1 {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    opacity: 0.85;
+    transform: translate(3vw, -2vw) scale(1.08);
+  }
+  66% {
+    opacity: 0.5;
+    transform: translate(-2vw, 3vw) scale(0.95);
+  }
+}
+
+@keyframes blobPulse2 {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    opacity: 0.75;
+    transform: translate(-3vw, 2vw) scale(1.1);
+  }
+  70% {
+    opacity: 0.4;
+    transform: translate(2vw, -1vw) scale(0.92);
+  }
+}
+
+@keyframes blobPulse3 {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(4vw, 2vw) scale(1.12);
+  }
+}
+
+@keyframes blobPulse4 {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    opacity: 0.3;
+    transform: translate(2vw, 3vw) scale(1.05);
+  }
+  65% {
+    opacity: 0.65;
+    transform: translate(-1vw, -2vw) scale(0.96);
+  }
+}
+
+/* Glow effects */
+.text-glow-orange {
+  text-shadow: 0 0 40px rgba(255, 138, 61, 0.3), 0 0 80px rgba(255, 138, 61, 0.1);
+}
+
+.text-glow-white {
+  text-shadow: 0 0 60px rgba(255, 255, 255, 0.15), 0 0 120px rgba(255, 255, 255, 0.05);
+}
+
+/* Classified stamp */
+.stamp {
+  position: absolute;
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cosmic-orange);
+  border: 2px dashed var(--cosmic-orange);
+  padding: 0.35rem 1rem;
+  transform: rotate(-12deg);
+  opacity: 0.2;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Section number watermark */
+.section-watermark {
+  position: absolute;
+  top: -20px;
+  right: 0;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(120px, 15vw, 200px);
+  font-weight: 800;
+  color: var(--light-purple);
+  opacity: 0.15;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Sector card hover glow */
+.sector-item-hover {
+  transition: all 0.2s ease-out;
+}
+.sector-item-hover:hover {
+  background: rgba(61, 21, 96, 0.4);
+  box-shadow: inset 3px 0 0 var(--cosmic-orange);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skip to content */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.5rem 1rem;
+  background: var(--cosmic-orange);
+  color: var(--dark-bg);
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-to-content:focus {
+  top: 1rem;
 }
