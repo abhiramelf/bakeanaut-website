@@ -4,16 +4,20 @@ import BrandIntro from '@/components/BrandIntro'
 import Gallery from '@/components/Gallery'
 import Menu from '@/components/Menu'
 import Footer from '@/components/Footer'
+import LoadingScreen from '@/components/LoadingScreen'
 
 export default function Home() {
   return (
-    <main>
-      <Navbar />
-      <Hero />
-      <BrandIntro />
-      <Gallery />
-      <Menu />
-      <Footer />
-    </main>
+    <>
+      <LoadingScreen />
+      <main>
+        <Navbar />
+        <Hero />
+        <BrandIntro />
+        <Gallery />
+        <Menu />
+        <Footer />
+      </main>
+    </>
   )
 }
