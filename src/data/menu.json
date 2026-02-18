@@ -11,7 +11,7 @@
           "id": "black-hole",
           "name": "BLACK HOLE",
           "description": "Dark cocoa shell, molten white-chocolate singularity",
-          "price": null,
+          "price": 200,
           "badges": [],
           "images": []
         },
@@ -19,7 +19,7 @@
           "id": "red-planet",
           "name": "RED PLANET",
           "description": "Crimson velvet crust, cream-cheese lava core",
-          "price": null,
+          "price": 240,
           "badges": [
             "best-selling"
           ],
@@ -29,7 +29,7 @@
           "id": "meteor-shower",
           "name": "METEOR SHOWER",
           "description": "Brown-butter base, walnut craters + chocolate debris",
-          "price": null,
+          "price": 180,
           "badges": []
         }
       ]

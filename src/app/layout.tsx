@@ -43,10 +43,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/logo.png',
-        width: 800,
-        height: 600,
-        alt: 'Bakeanaut — Edible Missions',
+        url: '/images/Bakeanaut_OG.png',
+        width: 1200,
+        height: 630,
+        alt: 'Bakeanaut — Edible Missions. Cleared for Launch.',
       },
     ],
   },
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: 'Bakeanaut — Edible Missions. Cleared for Launch.',
     description:
       'An experiential brand built around indulgent, dessert-forward missions. Order via WhatsApp.',
-    images: ['/images/logo.png'],
+    images: ['/images/Bakeanaut_OG.png'],
   },
   robots: {
     index: true,

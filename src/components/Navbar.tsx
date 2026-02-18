@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
-import { buildDirectOrderUrl } from '@/lib/whatsapp'
+import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import MobileMenu from './MobileMenu'
 import CartDrawer from './CartDrawer'
 import StickyCartBar from './StickyCartBar'
@@ -21,7 +21,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
-  const { totalItems } = useCart()
+  const { totalItems, items } = useCart()
   const activeSection = useScrollSpy(['hero', 'about', 'gallery', 'menu'])
   const shouldReduceMotion = useReducedMotion()
 
@@ -126,7 +126,7 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <a
-              href={buildDirectOrderUrl()}
+              href={buildSmartOrderUrl(items)}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-700 uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"

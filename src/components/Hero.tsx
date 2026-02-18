@@ -3,7 +3,8 @@
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import StarField from './StarField'
-import { buildDirectOrderUrl } from '@/lib/whatsapp'
+import { buildSmartOrderUrl } from '@/lib/whatsapp'
+import { useCart } from '@/hooks/useCart'
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -37,6 +38,7 @@ function TickerContent() {
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
+  const { items } = useCart()
 
   const slideUp = (delay: number) => ({
     hidden: { opacity: 0, y: 40 },
@@ -130,7 +132,7 @@ export default function Hero() {
               Browse Missions
             </Link>
             <a
-              href={buildDirectOrderUrl()}
+              href={buildSmartOrderUrl(items)}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-cosmic-orange px-8 py-3.5 font-display text-xs font-700 uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110 sm:px-10 sm:py-4 sm:text-sm"

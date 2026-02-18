@@ -31,3 +31,10 @@ export function buildDirectOrderUrl(): string {
   const message = '🚀 Hey Bakeanaut! I\'d like to place an order.'
   return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
 }
+
+export function buildSmartOrderUrl(items: CartItem[]): string {
+  if (items.length > 0) {
+    return buildWhatsAppUrl(items)
+  }
+  return buildDirectOrderUrl()
+}

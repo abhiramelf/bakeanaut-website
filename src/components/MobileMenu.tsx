@@ -3,7 +3,8 @@
 import { useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import { buildDirectOrderUrl } from '@/lib/whatsapp'
+import { buildSmartOrderUrl } from '@/lib/whatsapp'
+import { useCart } from '@/hooks/useCart'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -18,6 +19,7 @@ const navLinks = [
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const shouldReduceMotion = useReducedMotion()
+  const { items } = useCart()
 
   useEffect(() => {
     if (!isOpen) return
@@ -103,7 +105,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             <div className="p-6">
               <a
-                href={buildDirectOrderUrl()}
+                href={buildSmartOrderUrl(items)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-cosmic-orange py-3 text-center font-display text-sm font-700 uppercase tracking-widest text-dark-bg transition-colors hover:brightness-110"
