@@ -188,6 +188,6 @@ export const bundles: Bundle[] = [
   {
     id: 'sector-hop',
     name: 'SECTOR HOP',
-    description: 'Pick any 2 from different sectors (unlock extra sticker)',
+    description: 'Pick any 2 from different sectors',
   },
 ]

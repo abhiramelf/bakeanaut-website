@@ -6,6 +6,34 @@ import { buildDirectOrderUrl } from '@/lib/whatsapp'
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
+const tickerItems = [
+  'SECTOR I: ONLINE',
+  'SECTOR II: ONLINE',
+  'SECTOR III: ONLINE',
+  '7 ACTIVE SECTORS',
+  'CREW CLEARANCE: OPEN',
+  'PAYLOAD CAPACITY: LIMITED',
+  'BASE: TRIVANDRUM',
+  'STATUS: OPERATIONAL',
+]
+
+function TickerContent() {
+  return (
+    <>
+      {tickerItems.map((item, i) => (
+        <span key={i} className="flex shrink-0 items-center gap-8 px-8">
+          <span className="text-xs tracking-[0.2em] text-cookie-tan sm:text-sm">
+            {item}
+          </span>
+          <span className="text-cosmic-orange/50" aria-hidden="true">
+            //
+          </span>
+        </span>
+      ))}
+    </>
+  )
+}
+
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
 
@@ -25,12 +53,31 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col justify-end overflow-hidden bg-deep-space px-6 py-24 lg:px-8"
+      className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-deep-space px-6 py-24 lg:px-8"
     >
       <StarField />
 
       {/* Stamps */}
       <div className="stamp right-8 top-28 hidden lg:block">CLASSIFIED</div>
+
+      {/* Mission ticker */}
+      <motion.div
+        variants={slideUp(0.1)}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 mt-12 w-screen -ml-6 lg:-ml-8 overflow-hidden border-y border-cosmic-orange/20 bg-light-purple/20 backdrop-blur-sm"
+        aria-label="Mission status ticker"
+      >
+        <div
+          className="ticker-track font-mono py-4"
+          style={shouldReduceMotion ? { animation: 'none' } : undefined}
+        >
+          <TickerContent />
+          <TickerContent />
+          <TickerContent />
+          <TickerContent />
+        </div>
+      </motion.div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px]">
         {/* Headline — left-aligned, massive, with second line indented */}
