@@ -1,9 +1,14 @@
 import Image from 'next/image'
+import type { SiteContent } from '@/types/content'
 
-export default function Footer() {
+interface FooterProps {
+  contact: SiteContent['contact']
+  footer: SiteContent['footer']
+}
+
+export default function Footer({ contact, footer }: FooterProps) {
   return (
     <footer className="relative border-t border-light-purple/30 bg-dark-bg px-6 py-20">
-      {/* Top accent */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cosmic-orange/30 to-transparent" />
 
       <div className="mx-auto grid max-w-[1280px] gap-12 md:grid-cols-3">
@@ -14,10 +19,11 @@ export default function Footer() {
             alt="Bakeanaut"
             width={180}
             height={72}
+            draggable={false}
             className="mb-6 h-14 w-auto"
           />
           <p className="font-mono text-xs tracking-[0.2em] text-muted-purple/60">
-            Edible Missions. Cleared for Launch.
+            {footer.tagline}
           </p>
           <div className="mt-4 h-px w-16 bg-cosmic-orange/30" />
         </div>
@@ -27,27 +33,29 @@ export default function Footer() {
           <p className="font-mono text-xs font-bold tracking-[0.2em] text-cosmic-orange">
             HQ COORDINATES
           </p>
-          <p className="text-muted-purple/80">Near Manacaud P.O., Thiruvananthapuram, 695009</p>
+          <p className="text-muted-purple/80">
+            {contact.address.street}, {contact.address.city}, {contact.address.postalCode}
+          </p>
           <div className="space-y-1 pt-3">
             <p className="font-mono text-xs font-bold tracking-[0.2em] text-mission-white/60">OPERATIONAL HOURS</p>
-            <p className="text-muted-purple/80">Mon–Thu: 11AM–9PM</p>
-            <p className="text-muted-purple/80">Fri–Sat: 11AM–10PM</p>
-            <p className="text-muted-purple/80">Sun: 12PM–8PM</p>
+            {contact.hours.map((line, i) => (
+              <p key={i} className="text-muted-purple/80">{line}</p>
+            ))}
           </div>
           <div className="flex flex-col gap-2 pt-3">
             <a
-              href="tel:+919916699631"
+              href={`tel:${contact.phone.replace(/\s/g, '')}`}
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
-              +91 9916699631
+              {contact.phone}
             </a>
             <a
-              href="https://instagram.com/bakeanaut_"
+              href={contact.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
-              @bakeanaut_
+              {contact.instagram.handle}
             </a>
           </div>
         </div>
@@ -78,7 +86,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-2">
           <div className="h-px w-12 bg-cosmic-orange/30" />
           <p className="font-mono text-center text-[11px] tracking-[0.3em] text-muted-purple/40">
-            EDIBLE MISSIONS. CLEARED FOR LAUNCH.
+            {footer.closingLine}
           </p>
         </div>
       </div>

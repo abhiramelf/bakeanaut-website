@@ -8,24 +8,32 @@ import CrewProgram from '@/components/CrewProgram'
 import Footer from '@/components/Footer'
 import LoadingScreen from '@/components/LoadingScreen'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import { getSiteContent, getMenuData } from '@/lib/content'
 
-export default function Home() {
+export const revalidate = 3600
+
+export default async function Home() {
+  const [content, menuData] = await Promise.all([getSiteContent(), getMenuData()])
+
   return (
     <>
-      <LoadingScreen />
+      <LoadingScreen systemChecks={content.loadingScreen.systemChecks} />
       <main id="main-content">
-        <Navbar />
-        <Hero />
-        <BrandIntro />
+        <Navbar whatsappPhone={content.contact.whatsappPhone} />
+        <Hero hero={content.hero} whatsappPhone={content.contact.whatsappPhone} />
+        <BrandIntro brandIntro={content.brandIntro} />
         <ErrorBoundary>
-          <Gallery />
+          <Gallery gallery={content.gallery} />
         </ErrorBoundary>
-        <CrewTransmissions />
+        <CrewTransmissions crewTransmissions={content.crewTransmissions} />
         <ErrorBoundary>
-          <FeaturedMissions />
+          <FeaturedMissions
+            featuredMissions={content.featuredMissions}
+            menuData={menuData}
+          />
         </ErrorBoundary>
-        <CrewProgram />
-        <Footer />
+        <CrewProgram crewProgram={content.crewProgram} whatsappPhone={content.contact.whatsappPhone} />
+        <Footer contact={content.contact} footer={content.footer} />
       </main>
     </>
   )

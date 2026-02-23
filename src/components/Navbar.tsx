@@ -17,7 +17,11 @@ const navLinks = [
   { href: '/#gallery', label: 'Gallery', id: 'gallery', isRoute: false },
 ]
 
-export default function Navbar() {
+interface NavbarProps {
+  whatsappPhone?: string
+}
+
+export default function Navbar({ whatsappPhone }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
@@ -25,6 +29,7 @@ export default function Navbar() {
   const cartButtonRef = useRef<HTMLButtonElement>(null)
   const activeSection = useScrollSpy(['hero', 'about', 'gallery', 'menu'])
   const shouldReduceMotion = useReducedMotion()
+  const phone = whatsappPhone
 
   useEffect(() => {
     if (addCount === 0 || shouldReduceMotion) return
@@ -78,6 +83,8 @@ export default function Navbar() {
               width={240}
               height={80}
               priority
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               className="h-14 w-auto sm:h-16 lg:h-[72px]"
             />
           </Link>
@@ -144,7 +151,7 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <a
-              href={buildSmartOrderUrl(items)}
+              href={buildSmartOrderUrl(items, phone)}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"

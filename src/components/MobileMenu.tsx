@@ -19,7 +19,7 @@ const navLinks = [
 
 export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const shouldReduceMotion = useReducedMotion()
-  const { items } = useCart()
+  const { items, whatsappPhone } = useCart()
 
   useEffect(() => {
     if (!isOpen) return
@@ -105,7 +105,7 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
             <div className="p-6">
               <a
-                href={buildSmartOrderUrl(items)}
+                href={buildSmartOrderUrl(items, whatsappPhone)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full bg-cosmic-orange py-3 text-center font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-colors hover:brightness-110"

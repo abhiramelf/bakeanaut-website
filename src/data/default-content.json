@@ -1,0 +1,220 @@
+{
+  "_version": 1,
+  "_updatedAt": "2025-01-01T00:00:00.000Z",
+
+  "meta": {
+    "siteTitle": "Bakeanaut — Edible Missions. Cleared for Launch.",
+    "siteDescription": "An experiential brand built around indulgent, dessert-forward missions. Order via WhatsApp from Thiruvananthapuram, Kerala.",
+    "canonicalUrl": "https://bakeanaut.in"
+  },
+
+  "contact": {
+    "whatsappPhone": "919916699631",
+    "address": {
+      "street": "Near Manacaud P.O.",
+      "city": "Thiruvananthapuram",
+      "postalCode": "695009"
+    },
+    "hours": [
+      "Mon–Thu: 11AM–9PM",
+      "Fri–Sat: 11AM–10PM",
+      "Sun: 12PM–8PM"
+    ],
+    "phone": "+91 9916699631",
+    "instagram": {
+      "handle": "@bakeanaut_",
+      "url": "https://instagram.com/bakeanaut_"
+    },
+    "googleMapsUrl": "https://maps.app.goo.gl/LCLYbiTDUeq5VU7n8"
+  },
+
+  "hero": {
+    "headline": ["EDIBLE", "MISSIONS.", "CLEARED FOR", "LAUNCH."],
+    "highlightLineIndex": 3,
+    "subheadline": "An experiential brand built around indulgent, dessert-forward missions.",
+    "ctaPrimaryLabel": "Order on WhatsApp",
+    "ctaSecondaryLabel": "Browse Missions",
+    "tickerItems": [
+      "SECTOR I: ONLINE",
+      "SECTOR II: ONLINE",
+      "SECTOR III: ONLINE",
+      "7 ACTIVE SECTORS",
+      "CREW CLEARANCE: OPEN",
+      "PAYLOAD CAPACITY: LIMITED",
+      "BASE: TRIVANDRUM",
+      "STATUS: OPERATIONAL"
+    ]
+  },
+
+  "brandIntro": {
+    "sectionLabel": "THE PROGRAM",
+    "cards": [
+      {
+        "number": "01",
+        "title": "Not a bakery.",
+        "description": "A space program for your taste buds. Every recipe is a mission. Every launch is an event."
+      },
+      {
+        "number": "02",
+        "title": "Not products.",
+        "description": "Missions with codes, logs, and lore. Each item carries a story, a sector, and a purpose."
+      },
+      {
+        "number": "03",
+        "title": "Not customers.",
+        "description": "Crew members who earn badges and rank up. You don't just order — you enlist and become part of something bigger."
+      }
+    ],
+    "quote": [
+      "Every offering exists for a reason.",
+      "Every customer becomes crew."
+    ]
+  },
+
+  "gallery": {
+    "sectionLabel": "MISSION ARCHIVE",
+    "heading": "FIELD",
+    "headingHighlight": "DOCUMENTATION",
+    "images": [
+      { "url": "/images/gallery/IMG_2004.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_2099.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_1742.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_2063.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_1765.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_1995.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_1715.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_1992.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_2052.png", "alt": "Mission archive documentation" },
+      { "url": "/images/gallery/IMG_2124.png", "alt": "Mission archive documentation" }
+    ]
+  },
+
+  "crewTransmissions": {
+    "sectionLabel": "CREW TRANSMISSIONS",
+    "overallRating": "5.0",
+    "reportCount": "7 CREW REPORTS",
+    "reviews": [
+      {
+        "name": "Al Ameen Mohammed Hussain",
+        "text": "Visited to get a butter cake for my wife's birthday, and the quality was beyond my expectations. The sweetness was perfectly balanced — not too sugary. You can feel the personal touch in their baking. Must try!",
+        "rating": 5,
+        "tag": "LOCAL GUIDE"
+      },
+      {
+        "name": "Mohammadyahya Mansuri",
+        "text": "A must-visit for anyone who loves fresh, delicious pastries. From buttery croissants to decadent chocolate chip cookies, everything is made with care and high-quality ingredients. Their cakes are simply divine.",
+        "rating": 5,
+        "tag": "LOCAL GUIDE"
+      },
+      {
+        "name": "Sneha Saha",
+        "text": "One stop destination for gorgeous looking and incredibly delicious cakes. Highly recommend these for every occasion!",
+        "rating": 5
+      },
+      {
+        "name": "Deepa",
+        "text": "Treats have been consistently amazing! Fresh, flavorful, and incredibly tasty. A true delight! Definitely a must-try!",
+        "rating": 5
+      },
+      {
+        "name": "Sruthi R",
+        "text": "The cakes over here are so awesome and freshly baked — super healthy too! Loved the taste!",
+        "rating": 5
+      },
+      {
+        "name": "Rachna Goel",
+        "text": "Had jowar, oats brownie, modak and other delicacies. All are superb. No palm oil, no preservatives, no maida. Totally healthy and tasty options. Go for it without a second thought.",
+        "rating": 5
+      },
+      {
+        "name": "Sujitha Thangavelu",
+        "text": "I have bought brownie from Bakeanaut. It was very tasty.",
+        "rating": 5
+      }
+    ],
+    "googleReviewUrl": "https://maps.app.goo.gl/LCLYbiTDUeq5VU7n8"
+  },
+
+  "featuredMissions": {
+    "sectionLabel": "TOP MISSIONS",
+    "heading": "CREW",
+    "headingHighlight": "FAVORITES",
+    "subtext": "Our most-requested missions · Crew-approved · Launch-ready",
+    "ctaLabel": "View All Missions"
+  },
+
+  "crewProgram": {
+    "sectionLabel": "CREW PROGRAM",
+    "headingLines": ["YOU DON'T", "JUST ORDER.", "YOU ENLIST."],
+    "headingHighlight": "YOU ENLIST.",
+    "description": "Every mission you complete earns you rank. Every rank unlocks new perks, classified drops, and crew-only access. This isn't a points program — it's a commitment.",
+    "ranks": [
+      {
+        "rank": "SPACE CADET",
+        "ordinal": "01",
+        "requirement": "1st order",
+        "perks": [
+          "Welcome sticker with your order",
+          "Priority drop notifications",
+          "Crew-only updates on WhatsApp"
+        ]
+      },
+      {
+        "rank": "SQUADRON LEADER",
+        "ordinal": "02",
+        "requirement": "10 orders",
+        "perks": [
+          "Classified menu access",
+          "Birthday mission (free item)",
+          "Early intel on new launches"
+        ]
+      },
+      {
+        "rank": "WING COMMANDER",
+        "ordinal": "03",
+        "requirement": "25 orders",
+        "perks": [
+          "Free mission on milestones",
+          "First access to limited drops",
+          "Custom mission requests"
+        ]
+      }
+    ],
+    "quote": "We remember every crew member by name. Your 10th order isn't just another order to us — it's a milestone we celebrate with you.",
+    "quoteAttribution": "BAKEANAUT MISSION CONTROL",
+    "ctaPrimaryLabel": "Begin Your First Mission",
+    "ctaSecondaryLabel": "Already Crew? Check Rank"
+  },
+
+  "menu": {
+    "sectionLabel": "ACTIVE MISSIONS",
+    "heading": "ACTIVE MISSIONS",
+    "subtext": "Limited payload per day · Ask crew about classified drops",
+    "pageHeading": "FULL CATALOG",
+    "pageSubtext": "Limited payload per day · Ask crew about classified drops",
+    "tickerItems": [
+      "SCANNING SECTORS",
+      "PAYLOAD CAPACITY: LIMITED",
+      "CREW CLEARANCE: ACTIVE",
+      "DAILY MISSIONS UPDATED",
+      "CLASSIFIED DROPS: ASK CREW",
+      "ALL SECTORS NOMINAL"
+    ]
+  },
+
+  "footer": {
+    "tagline": "Edible Missions. Cleared for Launch.",
+    "closingLine": "EDIBLE MISSIONS. CLEARED FOR LAUNCH."
+  },
+
+  "loadingScreen": {
+    "systemChecks": [
+      "INITIALIZING NAVIGATION SYSTEMS",
+      "LOADING SECTOR DATA",
+      "CALIBRATING PAYLOAD SENSORS",
+      "SYNCING MISSION CONTROL",
+      "ESTABLISHING COMMS LINK",
+      "ALL SYSTEMS NOMINAL"
+    ]
+  }
+}

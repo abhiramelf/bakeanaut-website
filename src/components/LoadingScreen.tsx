@@ -4,19 +4,14 @@ import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 
-const systemChecks = [
-  'INITIALIZING NAVIGATION SYSTEMS',
-  'LOADING SECTOR DATA',
-  'CALIBRATING PAYLOAD SENSORS',
-  'SYNCING MISSION CONTROL',
-  'ESTABLISHING COMMS LINK',
-  'ALL SYSTEMS NOMINAL',
-]
-
 const TOTAL_DURATION = 3400
 const CHECK_INTERVAL = 480
 
-export default function LoadingScreen() {
+interface LoadingScreenProps {
+  systemChecks: string[]
+}
+
+export default function LoadingScreen({ systemChecks }: LoadingScreenProps) {
   const shouldReduceMotion = useReducedMotion()
   const [progress, setProgress] = useState(0)
   const [currentCheck, setCurrentCheck] = useState(0)
@@ -32,7 +27,6 @@ export default function LoadingScreen() {
 
     document.body.style.overflow = 'hidden'
 
-    // Delay progress + checks until the bar is visible (matches animation delay)
     const BAR_VISIBLE_DELAY = 750
 
     let progressInterval: ReturnType<typeof setInterval>
@@ -65,7 +59,7 @@ export default function LoadingScreen() {
       clearTimeout(dismissTimer)
       document.body.style.overflow = ''
     }
-  }, [shouldReduceMotion, dismiss])
+  }, [shouldReduceMotion, dismiss, systemChecks.length])
 
   useEffect(() => {
     if (dismissed) {
@@ -133,9 +127,9 @@ export default function LoadingScreen() {
             className="absolute left-6 top-6 font-mono text-[10px] tracking-[0.2em] text-muted-purple/40 sm:left-8 sm:top-8"
             aria-hidden="true"
           >
-            08.4882°N
+            08.4882&deg;N
             <br />
-            76.9531°E
+            76.9531&deg;E
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
@@ -217,6 +211,8 @@ export default function LoadingScreen() {
                   width={220}
                   height={110}
                   priority
+                  draggable={false}
+                  onContextMenu={(e) => e.preventDefault()}
                   className="h-auto w-40 drop-shadow-[0_0_40px_rgba(255,138,61,0.25)] sm:w-52"
                 />
               </motion.div>
@@ -239,7 +235,6 @@ export default function LoadingScreen() {
               transition={{ delay: 0.7, duration: 0.5 }}
               className="mt-10 w-full max-w-xs sm:max-w-sm"
             >
-              {/* Bar */}
               <div className="relative h-[3px] w-full bg-muted-purple/15 overflow-hidden">
                 <motion.div
                   className="h-full bg-cosmic-orange"
@@ -250,7 +245,6 @@ export default function LoadingScreen() {
                 />
               </div>
 
-              {/* System check + percentage */}
               <div className="mt-3 flex items-baseline justify-between gap-4">
                 <span className="min-w-0 truncate font-mono text-[10px] tracking-[0.12em] text-muted-purple/60">
                   {systemChecks[currentCheck]}
@@ -272,7 +266,7 @@ export default function LoadingScreen() {
               </div>
             </motion.div>
 
-            {/* Status stamp — appears mid-load, upgrades to GRANTED */}
+            {/* Status stamp */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{

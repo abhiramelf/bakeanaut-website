@@ -1,6 +1,6 @@
 import type { CartItem } from '@/types'
 
-const PHONE = '919916699631'
+const DEFAULT_PHONE = '919916699631'
 
 export function formatCartMessage(items: CartItem[]): string {
   const itemLines = items
@@ -22,24 +22,24 @@ Total Items: ${totalItems}
 Awaiting launch clearance. 🛰️`
 }
 
-export function buildWhatsAppUrl(items: CartItem[]): string {
+export function buildWhatsAppUrl(items: CartItem[], phone?: string): string {
   const message = formatCartMessage(items)
-  return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
+  return `https://wa.me/${phone || DEFAULT_PHONE}?text=${encodeURIComponent(message)}`
 }
 
-export function buildDirectOrderUrl(): string {
+export function buildDirectOrderUrl(phone?: string): string {
   const message = '🚀 Hey Bakeanaut! I\'d like to place an order.'
-  return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
+  return `https://wa.me/${phone || DEFAULT_PHONE}?text=${encodeURIComponent(message)}`
 }
 
-export function buildSmartOrderUrl(items: CartItem[]): string {
+export function buildSmartOrderUrl(items: CartItem[], phone?: string): string {
   if (items.length > 0) {
-    return buildWhatsAppUrl(items)
+    return buildWhatsAppUrl(items, phone)
   }
-  return buildDirectOrderUrl()
+  return buildDirectOrderUrl(phone)
 }
 
-export function buildRankEnquiryUrl(): string {
+export function buildRankEnquiryUrl(phone?: string): string {
   const message = `🛰️ Hey Bakeanaut! I'd like to check my crew rank and mission history.
 
 My details:
@@ -48,5 +48,5 @@ Phone:
 Order number (if available):
 
 Requesting rank status update. 🚀`
-  return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
+  return `https://wa.me/${phone || DEFAULT_PHONE}?text=${encodeURIComponent(message)}`
 }

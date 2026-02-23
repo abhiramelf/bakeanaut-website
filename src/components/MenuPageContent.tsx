@@ -6,9 +6,16 @@ import TypewriterReveal from './TypewriterReveal'
 import SectorBlock from './SectorBlock'
 import BundleCard from './BundleCard'
 import SectorNav from './SectorNav'
-import { sectors, specialPayloads, bundles } from '@/data/menu'
+import type { SiteContent, MenuData } from '@/types/content'
 
-export default function MenuPageContent() {
+interface MenuPageContentProps {
+  menu: SiteContent['menu']
+  menuData: MenuData
+}
+
+export default function MenuPageContent({ menu, menuData }: MenuPageContentProps) {
+  const { sectors, specialPayloads, bundles } = menuData
+
   return (
     <div id="main-content">
       {/* Compact header */}
@@ -24,17 +31,26 @@ export default function MenuPageContent() {
             BACK TO BASE
           </Link>
           <TypewriterReveal
-            text="ACTIVE MISSIONS"
+            text={menu.sectionLabel}
             as="p"
             className="mt-6 font-mono text-xs tracking-[0.4em] text-cosmic-orange"
           />
           <h1 className="mt-3 font-display text-5xl font-extrabold uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
-            FULL
-            <br />
-            <span className="text-cosmic-orange text-glow-orange">CATALOG</span>
+            {menu.pageHeading.split(' ').map((word, i, arr) => (
+              <span key={i}>
+                {i === arr.length - 1 ? (
+                  <>
+                    <br />
+                    <span className="text-cosmic-orange text-glow-orange">{word}</span>
+                  </>
+                ) : (
+                  word + ' '
+                )}
+              </span>
+            ))}
           </h1>
           <p className="mt-6 max-w-md font-body text-base text-muted-purple md:text-lg">
-            Limited payload per day &middot; Ask crew about classified drops
+            {menu.pageSubtext}
           </p>
           <div className="mt-8 h-px w-full bg-gradient-to-r from-cosmic-orange/50 via-light-purple/30 to-transparent" />
         </div>
@@ -48,14 +64,7 @@ export default function MenuPageContent() {
         <div className="ticker-track-half font-mono py-2.5 text-[10px] tracking-[0.15em] text-muted-purple/50">
           {[0, 1].map((copy) => (
             <span key={copy} className="flex shrink-0 items-center">
-              {[
-                'SCANNING SECTORS',
-                'PAYLOAD CAPACITY: LIMITED',
-                'CREW CLEARANCE: ACTIVE',
-                'DAILY MISSIONS UPDATED',
-                'CLASSIFIED DROPS: ASK CREW',
-                'ALL SECTORS NOMINAL',
-              ].map((text, i) => (
+              {menu.tickerItems.map((text, i) => (
                 <span key={i} className="flex shrink-0 items-center gap-6 px-6">
                   <span>{text}</span>
                   <span className="text-light-purple/40">{'//'}

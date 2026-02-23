@@ -3,6 +3,8 @@ import { Syne, Space_Grotesk, Space_Mono } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/hooks/useCart'
 import CartToast from '@/components/CartToast'
+import { getSiteContent } from '@/lib/content'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const syne = Syne({
   variable: '--font-syne',
@@ -106,11 +108,14 @@ const jsonLd = {
   ],
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const content = await getSiteContent()
+  const whatsappPhone = content.contact.whatsappPhone
+
   return (
     <html lang="en">
       <head>
@@ -125,9 +130,10 @@ export default function RootLayout({
         <a href="#main-content" className="skip-to-content">
           Skip to content
         </a>
-        <CartProvider>
+        <CartProvider whatsappPhone={whatsappPhone}>
           <CartToast />
           {children}
+          <SpeedInsights />
         </CartProvider>
       </body>
     </html>

@@ -4,36 +4,57 @@ import Link from 'next/link'
 import ScrollReveal from './ScrollReveal'
 import TypewriterReveal from './TypewriterReveal'
 import MenuItem from './MenuItem'
-import { getFeaturedItems } from '@/data/menu'
+import type { SiteContent, MenuData } from '@/types/content'
+import type { FeaturedItem } from '@/types'
 
-const featuredItems = getFeaturedItems()
+interface FeaturedMissionsProps {
+  featuredMissions: SiteContent['featuredMissions']
+  menuData: MenuData
+}
 
-export default function FeaturedMissions() {
+function getFeaturedItems(menuData: MenuData): FeaturedItem[] {
+  const featured: FeaturedItem[] = []
+  for (const id of menuData.featuredItemIds) {
+    for (const sector of menuData.sectors) {
+      const item = sector.items.find((i) => i.id === id)
+      if (item) {
+        featured.push({
+          item,
+          sectorName: sector.name,
+          sectorCode: sector.code,
+        })
+        break
+      }
+    }
+  }
+  return featured
+}
+
+export default function FeaturedMissions({ featuredMissions, menuData }: FeaturedMissionsProps) {
+  const featuredItems = getFeaturedItems(menuData)
+
   return (
     <section id="menu" className="relative overflow-hidden bg-dark-bg px-6 py-28 md:py-36">
-      {/* Decorative accent top */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cosmic-orange/30 to-transparent" />
 
       <div className="mx-auto max-w-[1280px]">
-        {/* Header */}
         <ScrollReveal>
           <div className="relative">
             <p className="font-mono text-xs tracking-[0.4em] text-cosmic-orange">
-              TOP MISSIONS
+              {featuredMissions.sectionLabel}
             </p>
             <h2 className="mt-4 font-display text-4xl font-extrabold uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
-              <TypewriterReveal text="CREW" as="span" />
+              <TypewriterReveal text={featuredMissions.heading} as="span" />
               <br />
-              <TypewriterReveal text="FAVORITES" as="span" className="text-cosmic-orange text-glow-orange" staggerRate={0.04} />
+              <TypewriterReveal text={featuredMissions.headingHighlight} as="span" className="text-cosmic-orange text-glow-orange" staggerRate={0.04} />
             </h2>
             <p className="mt-6 max-w-md font-body text-base text-muted-purple md:text-lg">
-              Our most-requested missions &middot; Crew-approved &middot; Launch-ready
+              {featuredMissions.subtext}
             </p>
             <div className="mt-8 h-px w-full bg-gradient-to-r from-cosmic-orange/50 via-light-purple/30 to-transparent" />
           </div>
         </ScrollReveal>
 
-        {/* Featured items grid */}
         <div className="mt-16 grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {featuredItems.map((featured, i) => (
             <ScrollReveal key={featured.item.id} delay={i * 0.08}>
@@ -51,14 +72,13 @@ export default function FeaturedMissions() {
           ))}
         </div>
 
-        {/* CTA to full menu */}
         <ScrollReveal delay={0.3}>
           <div className="mt-16 flex justify-center">
             <Link
               href="/menu"
               className="group border-2 border-cosmic-orange px-10 py-4 font-display text-sm font-bold uppercase tracking-[0.15em] text-cosmic-orange transition-all duration-200 hover:bg-cosmic-orange hover:text-dark-bg hover:shadow-[0_0_30px_rgba(255,138,61,0.3)]"
             >
-              View All Missions
+              {featuredMissions.ctaLabel}
               <span className="ml-2 inline-block transition-transform duration-200 group-hover:translate-x-1">
                 &rarr;
               </span>

@@ -84,6 +84,8 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
           src={images[0]}
           alt={alt}
           fill
+          draggable={false}
+          onContextMenu={(e) => e.preventDefault()}
           className="object-cover"
           loading="lazy"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -120,6 +122,8 @@ export default function ImageCarousel({ images, alt }: ImageCarouselProps) {
               src={src}
               alt={`${alt} - image ${i + 1}`}
               fill
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               className="pointer-events-none object-cover"
               loading="lazy"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

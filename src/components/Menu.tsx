@@ -1,20 +1,25 @@
 import ScrollReveal from './ScrollReveal'
 import SectorBlock from './SectorBlock'
 import BundleCard from './BundleCard'
-import { sectors, specialPayloads, bundles } from '@/data/menu'
+import type { SiteContent, MenuData } from '@/types/content'
 
-export default function Menu() {
+interface MenuProps {
+  menu: SiteContent['menu']
+  menuData: MenuData
+}
+
+export default function Menu({ menu, menuData }: MenuProps) {
+  const { sectors, specialPayloads, bundles } = menuData
+
   return (
     <section id="menu" className="relative overflow-hidden bg-dark-bg px-6 py-28 md:py-36">
-      {/* Decorative accent top */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cosmic-orange/30 to-transparent" />
 
       <div className="mx-auto max-w-[1280px]">
-        {/* Header */}
         <ScrollReveal>
           <div className="relative">
             <p className="font-mono text-xs tracking-[0.4em] text-cosmic-orange">
-              ACTIVE MISSIONS
+              {menu.sectionLabel}
             </p>
             <h2 className="mt-4 font-display text-5xl font-extrabold uppercase tracking-tight text-glow-white md:text-7xl lg:text-8xl">
               ACTIVE
@@ -22,13 +27,12 @@ export default function Menu() {
               <span className="text-cosmic-orange text-glow-orange">MISSIONS</span>
             </h2>
             <p className="mt-6 max-w-md font-body text-base text-muted-purple md:text-lg">
-              Limited payload per day &middot; Ask crew about classified drops
+              {menu.subtext}
             </p>
             <div className="mt-8 h-px w-full bg-gradient-to-r from-cosmic-orange/50 via-light-purple/30 to-transparent" />
           </div>
         </ScrollReveal>
 
-        {/* Sectors */}
         <div className="mt-16 space-y-20">
           {sectors.map((sector, i) => (
             <SectorBlock key={sector.id} sector={sector} index={i} />

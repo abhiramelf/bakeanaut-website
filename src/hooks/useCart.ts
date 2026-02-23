@@ -100,13 +100,15 @@ interface CartContextValue {
   addCount: number
   lastAddedName: string | null
   generateWhatsAppUrl: () => string
+  whatsappPhone: string
 }
 
 const CartContext = createContext<CartContextValue | null>(null)
 
 const STORAGE_KEY = 'bakeanaut-cart'
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function CartProvider({ children, whatsappPhone }: { children: ReactNode; whatsappPhone?: string }) {
+  const phone = whatsappPhone || '919916699631'
   const [state, dispatch] = useReducer(cartReducer, { items: [], addCount: 0, lastAddedName: null })
 
   // Restore from localStorage on mount
@@ -155,8 +157,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0)
 
   const generateWhatsAppUrl = useCallback(() => {
-    return buildWhatsAppUrl(state.items)
-  }, [state.items])
+    return buildWhatsAppUrl(state.items, phone)
+  }, [state.items, phone])
 
   return React.createElement(
     CartContext.Provider,
@@ -171,6 +173,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         addCount: state.addCount,
         lastAddedName: state.lastAddedName,
         generateWhatsAppUrl,
+        whatsappPhone: phone,
       },
     },
     children

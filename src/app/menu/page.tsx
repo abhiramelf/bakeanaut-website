@@ -3,6 +3,9 @@ import Navbar from '@/components/Navbar'
 import MenuPageContent from '@/components/MenuPageContent'
 import Footer from '@/components/Footer'
 import ErrorBoundary from '@/components/ErrorBoundary'
+import { getSiteContent, getMenuData } from '@/lib/content'
+
+export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Active Missions — Bakeanaut',
@@ -10,14 +13,16 @@ export const metadata: Metadata = {
     'Browse all sectors. Planetary Cookies, Nebula Blocks, Lunar Cheesecakes, and more. Order via WhatsApp from Thiruvananthapuram, Kerala.',
 }
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  const [content, menuData] = await Promise.all([getSiteContent(), getMenuData()])
+
   return (
     <main>
-      <Navbar />
+      <Navbar whatsappPhone={content.contact.whatsappPhone} />
       <ErrorBoundary>
-        <MenuPageContent />
+        <MenuPageContent menu={content.menu} menuData={menuData} />
       </ErrorBoundary>
-      <Footer />
+      <Footer contact={content.contact} footer={content.footer} />
     </main>
   )
 }

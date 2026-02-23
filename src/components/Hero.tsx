@@ -6,24 +6,14 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import StarField from './StarField'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import { useCart } from '@/hooks/useCart'
+import type { SiteContent } from '@/types/content'
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-const tickerItems = [
-  'SECTOR I: ONLINE',
-  'SECTOR II: ONLINE',
-  'SECTOR III: ONLINE',
-  '7 ACTIVE SECTORS',
-  'CREW CLEARANCE: OPEN',
-  'PAYLOAD CAPACITY: LIMITED',
-  'BASE: TRIVANDRUM',
-  'STATUS: OPERATIONAL',
-]
-
-function TickerContent() {
+function TickerContent({ items }: { items: string[] }) {
   return (
     <>
-      {tickerItems.map((item, i) => (
+      {items.map((item, i) => (
         <span key={i} className="flex shrink-0 items-center gap-8 px-8">
           <span className="text-xs tracking-[0.2em] text-cookie-tan sm:text-sm">
             {item}
@@ -37,7 +27,12 @@ function TickerContent() {
   )
 }
 
-export default function Hero() {
+interface HeroProps {
+  hero: SiteContent['hero']
+  whatsappPhone: string
+}
+
+export default function Hero({ hero, whatsappPhone }: HeroProps) {
   const shouldReduceMotion = useReducedMotion()
   const { items } = useCart()
   const sectionRef = useRef<HTMLElement>(null)
@@ -93,36 +88,34 @@ export default function Hero() {
           className="ticker-track font-mono py-4"
           style={shouldReduceMotion ? { animation: 'none' } : undefined}
         >
-          <TickerContent />
-          <TickerContent />
-          <TickerContent />
-          <TickerContent />
+          <TickerContent items={hero.tickerItems} />
+          <TickerContent items={hero.tickerItems} />
+          <TickerContent items={hero.tickerItems} />
+          <TickerContent items={hero.tickerItems} />
         </div>
       </motion.div>
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px]">
-        {/* Headline — left-aligned, massive, with second line indented */}
+        {/* Headline — left-aligned, massive, with alternating indent */}
         <motion.h1
           variants={slideUp(0.2)}
           initial="hidden"
           animate="visible"
           className="font-display font-extrabold uppercase leading-[0.85] tracking-tighter text-glow-white"
         >
-          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)]">
-            EDIBLE
-          </span>
-          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)] sm:pl-[8vw] lg:pl-[12vw]">
-            MISSIONS.
-          </span>
-          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)]">
-            CLEARED FOR
-          </span>
-          <span className="block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)] sm:pl-[8vw] lg:pl-[12vw] text-cosmic-orange text-glow-orange">
-            LAUNCH.
-          </span>
+          {hero.headline.map((line, i) => (
+            <span
+              key={i}
+              className={`block text-[clamp(2.5rem,min(10vw,8vh),6.6rem)] ${
+                i % 2 !== 0 ? 'sm:pl-[8vw] lg:pl-[12vw]' : ''
+              } ${i === hero.highlightLineIndex ? 'text-cosmic-orange text-glow-orange' : ''}`}
+            >
+              {line}
+            </span>
+          ))}
         </motion.h1>
 
-        {/* Bottom row: subtext left, CTAs right — like the inspo */}
+        {/* Bottom row: subtext left, CTAs right */}
         <motion.div
           variants={slideUp(0.6)}
           initial="hidden"
@@ -131,9 +124,7 @@ export default function Hero() {
         >
           {/* Subtext */}
           <p className="max-w-sm font-body text-base text-muted-purple sm:text-lg">
-            An experiential brand built around
-            <br />
-            indulgent, dessert-forward missions.
+            {hero.subheadline}
           </p>
 
           {/* CTAs */}
@@ -142,15 +133,15 @@ export default function Hero() {
               href="/menu"
               className="border-2 border-mission-white px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-mission-white transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange"
             >
-              Browse Missions
+              {hero.ctaSecondaryLabel}
             </Link>
             <a
-              href={buildSmartOrderUrl(items)}
+              href={buildSmartOrderUrl(items, whatsappPhone)}
               target="_blank"
               rel="noopener noreferrer"
               className="bg-cosmic-orange px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
             >
-              Order on WhatsApp
+              {hero.ctaPrimaryLabel}
             </a>
           </div>
         </motion.div>
