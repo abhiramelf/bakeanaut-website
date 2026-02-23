@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
+import sharp from 'sharp'
 import { verifyPassword, createSession, setSessionCookie, clearSessionCookie } from '@/lib/auth'
 import { readJson, writeJson, uploadImage, deleteImage } from '@/lib/storage'
 import type { SiteContent, MenuData } from '@/types/content'
@@ -84,10 +85,13 @@ export async function POST(
       if (file.size > maxSize) {
         return NextResponse.json({ error: 'File too large. Max 10MB' }, { status: 400 })
       }
-      const buffer = Buffer.from(await file.arrayBuffer())
-      const ext = file.name.split('.').pop() || 'png'
-      const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
-      const url = await uploadImage(buffer, filename, file.type)
+      const rawBuffer = Buffer.from(await file.arrayBuffer())
+      // Convert all uploads to WebP for smaller file sizes
+      const buffer = file.type === 'image/webp'
+        ? rawBuffer
+        : await sharp(rawBuffer).webp({ quality: 80 }).toBuffer()
+      const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.webp`
+      const url = await uploadImage(buffer, filename, 'image/webp')
       return NextResponse.json({ url })
     } catch (error) {
       return NextResponse.json(
