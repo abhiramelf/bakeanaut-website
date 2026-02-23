@@ -11,6 +11,7 @@ import {
 import React from 'react'
 import type { MenuItem, CartItem } from '@/types'
 import { buildWhatsAppUrl } from '@/lib/whatsapp'
+import { trackEvent } from '@/lib/analytics'
 
 type CartAction =
   | { type: 'ADD_ITEM'; payload: { menuItem: MenuItem; sectorName: string; sectorCode: string } }
@@ -138,12 +139,14 @@ export function CartProvider({ children, whatsappPhone }: { children: ReactNode;
   const addItem = useCallback(
     (menuItem: MenuItem, sectorName: string, sectorCode: string) => {
       dispatch({ type: 'ADD_ITEM', payload: { menuItem, sectorName, sectorCode } })
+      trackEvent('add_to_cart', 'cart', menuItem.name, sectorName)
     },
     []
   )
 
   const removeItem = useCallback((id: string) => {
     dispatch({ type: 'REMOVE_ITEM', payload: { id } })
+    trackEvent('remove_from_cart', 'cart', id)
   }, [])
 
   const updateQuantity = useCallback((id: string, quantity: number) => {
@@ -152,6 +155,7 @@ export function CartProvider({ children, whatsappPhone }: { children: ReactNode;
 
   const clearCart = useCallback(() => {
     dispatch({ type: 'CLEAR_CART' })
+    trackEvent('clear_cart', 'cart')
   }, [])
 
   const totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0)

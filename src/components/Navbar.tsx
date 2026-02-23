@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
+import { trackEvent } from '@/lib/analytics'
 import MobileMenu from './MobileMenu'
 import CartDrawer from './CartDrawer'
 import StickyCartBar from './StickyCartBar'
@@ -154,6 +155,7 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
               href={buildSmartOrderUrl(items, phone)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('navbar_order_click', 'cta')}
               className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"
             >
               Order Now

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
+import { trackEvent } from '@/lib/analytics'
 import CartItemRow from './CartItem'
 
 interface CartDrawerProps {
@@ -171,6 +172,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   href={generateWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('launch_order', 'conversion', `${totalItems} items`)}
                   className="block w-full bg-cosmic-orange py-4 text-center font-display text-sm font-bold uppercase tracking-[0.2em] text-dark-bg transition-all hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
                 >
                   Launch Order on WhatsApp

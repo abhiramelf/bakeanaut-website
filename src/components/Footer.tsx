@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { trackEvent } from '@/lib/analytics'
 import type { SiteContent } from '@/types/content'
 
 interface FooterProps {
@@ -45,6 +48,7 @@ export default function Footer({ contact, footer }: FooterProps) {
           <div className="flex flex-col gap-2 pt-3">
             <a
               href={`tel:${contact.phone.replace(/\s/g, '')}`}
+              onClick={() => trackEvent('footer_phone_click', 'navigation')}
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
               {contact.phone}
@@ -53,6 +57,7 @@ export default function Footer({ contact, footer }: FooterProps) {
               href={contact.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('footer_instagram_click', 'navigation')}
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
               {contact.instagram.handle}

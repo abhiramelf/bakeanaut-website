@@ -6,6 +6,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import StarField from './StarField'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import { useCart } from '@/hooks/useCart'
+import { trackEvent } from '@/lib/analytics'
 import type { SiteContent } from '@/types/content'
 
 const easeOut: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -131,6 +132,7 @@ export default function Hero({ hero, whatsappPhone }: HeroProps) {
           <div className="flex items-center gap-[clamp(0.75rem,1.5vw,1.25rem)]">
             <Link
               href="/menu"
+              onClick={() => trackEvent('hero_browse_click', 'cta')}
               className="border-2 border-mission-white px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-mission-white transition-all duration-200 hover:border-cosmic-orange hover:text-cosmic-orange"
             >
               {hero.ctaSecondaryLabel}
@@ -139,6 +141,7 @@ export default function Hero({ hero, whatsappPhone }: HeroProps) {
               href={buildSmartOrderUrl(items, whatsappPhone)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('hero_order_click', 'cta')}
               className="bg-cosmic-orange px-[clamp(1.5rem,3vw,2.5rem)] py-[clamp(0.75rem,1.2vh,1rem)] font-display text-[clamp(0.65rem,1.2vw,0.875rem)] font-bold uppercase tracking-[0.15em] text-dark-bg transition-all duration-200 hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
             >
               {hero.ctaPrimaryLabel}
