@@ -1,14 +1,11 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-
 const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: 'grid' },
-  { href: '/admin/content', label: 'Content', icon: 'edit' },
-  { href: '/admin/menu', label: 'Menu', icon: 'list' },
-  { href: '/admin/gallery', label: 'Gallery', icon: 'image' },
-  { href: '/admin/reviews', label: 'Reviews', icon: 'star' },
+  { id: 'dashboard', label: 'Dashboard', icon: 'grid' },
+  { id: 'content', label: 'Content', icon: 'edit' },
+  { id: 'menu', label: 'Menu', icon: 'list' },
+  { id: 'gallery', label: 'Gallery', icon: 'image' },
+  { id: 'reviews', label: 'Reviews', icon: 'star' },
 ]
 
 function NavIcon({ icon }: { icon: string }) {
@@ -53,28 +50,24 @@ function NavIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function AdminSidebar({ className }: { className?: string }) {
-  const pathname = usePathname()
-
+export default function AdminSidebar({ className, activeTab, onTabChange }: { className?: string; activeTab: string; onTabChange: (tab: string) => void }) {
   return (
     <aside className={`flex w-56 flex-col border-r border-gray-200 bg-white ${className ?? ''}`}>
       <div className="border-b border-gray-200 px-4 py-5">
-        <Link href="/admin" className="text-sm font-bold tracking-wider text-gray-900">
+        <button onClick={() => onTabChange('dashboard')} className="text-sm font-bold tracking-wider text-gray-900">
           BAKEANAUT ADMIN
-        </Link>
+        </button>
       </div>
 
       <nav className="flex-1 px-3 py-4">
         <ul className="space-y-1">
           {navItems.map((item) => {
-            const isActive = item.href === '/admin'
-              ? pathname === '/admin'
-              : pathname.startsWith(item.href)
+            const isActive = activeTab === item.id
             return (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 text-sm transition-colors ${
+              <li key={item.id}>
+                <button
+                  onClick={() => onTabChange(item.id)}
+                  className={`flex w-full items-center gap-3 px-3 py-2 text-sm transition-colors ${
                     isActive
                       ? 'bg-gray-100 font-medium text-gray-900'
                       : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
@@ -82,7 +75,7 @@ export default function AdminSidebar({ className }: { className?: string }) {
                 >
                   <NavIcon icon={item.icon} />
                   {item.label}
-                </Link>
+                </button>
               </li>
             )
           })}
@@ -90,7 +83,7 @@ export default function AdminSidebar({ className }: { className?: string }) {
       </nav>
 
       <div className="border-t border-gray-200 px-3 py-3">
-        <Link
+        <a
           href="/"
           target="_blank"
           className="flex items-center gap-2 px-3 py-2 text-xs text-gray-400 transition-colors hover:text-gray-600"
@@ -100,7 +93,7 @@ export default function AdminSidebar({ className }: { className?: string }) {
             <polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
           </svg>
           View Live Site
-        </Link>
+        </a>
       </div>
     </aside>
   )

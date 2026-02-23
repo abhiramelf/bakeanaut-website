@@ -14,7 +14,7 @@ interface Review {
 
 const emptyReview: Review = { name: '', text: '', rating: 5 }
 
-export default function ReviewsEditor() {
+export default function ReviewsTab() {
   const [reviews, setReviews] = useState<Review[]>([])
   const [overallRating, setOverallRating] = useState('')
   const [reportCount, setReportCount] = useState('')
@@ -114,87 +114,44 @@ export default function ReviewsEditor() {
         </div>
       </div>
 
-      {/* Overall settings */}
       <div className="mt-6 border border-gray-200 bg-white p-4">
         <h2 className="text-sm font-semibold text-gray-900">Section Settings</h2>
         <div className="mt-3 grid gap-4 sm:grid-cols-3">
           <div>
             <label className="block text-xs font-medium text-gray-500">Overall Rating</label>
-            <input
-              type="text"
-              value={overallRating}
-              onChange={(e) => setOverallRating(e.target.value)}
-              className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-            />
+            <input type="text" value={overallRating} onChange={(e) => setOverallRating(e.target.value)} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-500">Report Count Label</label>
-            <input
-              type="text"
-              value={reportCount}
-              onChange={(e) => setReportCount(e.target.value)}
-              className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-            />
+            <input type="text" value={reportCount} onChange={(e) => setReportCount(e.target.value)} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
           </div>
           <div>
             <label className="block text-xs font-medium text-gray-500">Google Review URL</label>
-            <input
-              type="text"
-              value={googleReviewUrl}
-              onChange={(e) => setGoogleReviewUrl(e.target.value)}
-              className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-            />
+            <input type="text" value={googleReviewUrl} onChange={(e) => setGoogleReviewUrl(e.target.value)} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
           </div>
         </div>
       </div>
 
-      {/* Reviews list */}
       <div className="mt-4 space-y-3">
         {reviews.map((review, i) => (
           <div key={i} className="border border-gray-200 bg-white p-4">
             <div className="flex items-start justify-between">
               <span className="text-xs font-medium text-gray-400">Review #{i + 1}</span>
               <div className="flex gap-2">
-                <button
-                  onClick={() => moveReview(i, -1)}
-                  disabled={i === 0}
-                  className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30"
-                >
-                  &uarr;
-                </button>
-                <button
-                  onClick={() => moveReview(i, 1)}
-                  disabled={i === reviews.length - 1}
-                  className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30"
-                >
-                  &darr;
-                </button>
-                <button
-                  onClick={() => setDeleteIdx(i)}
-                  className="text-xs text-red-400 hover:text-red-600"
-                >
-                  Delete
-                </button>
+                <button onClick={() => moveReview(i, -1)} disabled={i === 0} className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30">&uarr;</button>
+                <button onClick={() => moveReview(i, 1)} disabled={i === reviews.length - 1} className="text-xs text-gray-400 hover:text-gray-600 disabled:opacity-30">&darr;</button>
+                <button onClick={() => setDeleteIdx(i)} className="text-xs text-red-400 hover:text-red-600">Delete</button>
               </div>
             </div>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <div>
                 <label className="block text-xs font-medium text-gray-500">Name</label>
-                <input
-                  type="text"
-                  value={review.name}
-                  onChange={(e) => updateReview(i, 'name', e.target.value)}
-                  className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-                />
+                <input type="text" value={review.name} onChange={(e) => updateReview(i, 'name', e.target.value)} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-gray-500">Rating</label>
-                  <select
-                    value={review.rating}
-                    onChange={(e) => updateReview(i, 'rating', parseInt(e.target.value))}
-                    className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-                  >
+                  <select value={review.rating} onChange={(e) => updateReview(i, 'rating', parseInt(e.target.value))} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none">
                     {[5, 4, 3, 2, 1].map((r) => (
                       <option key={r} value={r}>{r} stars</option>
                     ))}
@@ -202,24 +159,13 @@ export default function ReviewsEditor() {
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-gray-500">Tag (optional)</label>
-                  <input
-                    type="text"
-                    value={review.tag ?? ''}
-                    onChange={(e) => updateReview(i, 'tag', e.target.value)}
-                    placeholder="e.g. LOCAL GUIDE"
-                    className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-                  />
+                  <input type="text" value={review.tag ?? ''} onChange={(e) => updateReview(i, 'tag', e.target.value)} placeholder="e.g. LOCAL GUIDE" className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
                 </div>
               </div>
             </div>
             <div className="mt-3">
               <label className="block text-xs font-medium text-gray-500">Review Text</label>
-              <textarea
-                value={review.text}
-                onChange={(e) => updateReview(i, 'text', e.target.value)}
-                rows={3}
-                className="mt-1 w-full border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-              />
+              <textarea value={review.text} onChange={(e) => updateReview(i, 'text', e.target.value)} rows={3} className="mt-1 w-full border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
             </div>
           </div>
         ))}

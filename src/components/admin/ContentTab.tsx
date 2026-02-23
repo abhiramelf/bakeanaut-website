@@ -72,7 +72,7 @@ function Field({
   )
 }
 
-export default function ContentEditor() {
+export default function ContentTab() {
   const [content, setContent] = useState<SiteContent | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -131,7 +131,6 @@ export default function ContentEditor() {
       </div>
 
       <div className="mt-6 space-y-3">
-        {/* Meta */}
         <Section title="Meta / SEO">
           <div className="space-y-4">
             <Field label="Site Title" value={content.meta.siteTitle} onChange={(v) => update('meta', { ...content.meta, siteTitle: v })} />
@@ -140,7 +139,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Contact */}
         <Section title="Contact Info">
           <div className="space-y-4">
             <Field label="WhatsApp Phone (no +)" value={content.contact.whatsappPhone} onChange={(v) => update('contact', { ...content.contact, whatsappPhone: v })} />
@@ -155,7 +153,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Hero */}
         <Section title="Hero Section" defaultOpen>
           <div className="space-y-4">
             <DynamicList label="Headline Lines" items={content.hero.headline} onChange={(v) => update('hero', { ...content.hero, headline: v })} placeholder="e.g. EDIBLE" />
@@ -177,7 +174,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Brand Intro */}
         <Section title="Brand Intro (The Program)">
           <div className="space-y-4">
             <Field label="Section Label" value={content.brandIntro.sectionLabel} onChange={(v) => update('brandIntro', { ...content.brandIntro, sectionLabel: v })} />
@@ -209,7 +205,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Featured Missions */}
         <Section title="Featured Missions">
           <div className="space-y-4">
             <Field label="Section Label" value={content.featuredMissions.sectionLabel} onChange={(v) => update('featuredMissions', { ...content.featuredMissions, sectionLabel: v })} />
@@ -220,7 +215,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Crew Program */}
         <Section title="Crew Program">
           <div className="space-y-4">
             <Field label="Section Label" value={content.crewProgram.sectionLabel} onChange={(v) => update('crewProgram', { ...content.crewProgram, sectionLabel: v })} />
@@ -263,7 +257,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Menu Labels */}
         <Section title="Menu Section Labels">
           <div className="space-y-4">
             <Field label="Section Label" value={content.menu.sectionLabel} onChange={(v) => update('menu', { ...content.menu, sectionLabel: v })} />
@@ -275,7 +268,6 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Footer */}
         <Section title="Footer">
           <div className="space-y-4">
             <Field label="Tagline" value={content.footer.tagline} onChange={(v) => update('footer', { ...content.footer, tagline: v })} />
@@ -283,13 +275,11 @@ export default function ContentEditor() {
           </div>
         </Section>
 
-        {/* Loading Screen */}
         <Section title="Loading Screen">
           <DynamicList label="System Check Messages" items={content.loadingScreen.systemChecks} onChange={(v) => update('loadingScreen', { ...content.loadingScreen, systemChecks: v })} />
         </Section>
       </div>
 
-      {/* Sticky save bar */}
       <div className="sticky bottom-0 mt-6 border-t border-gray-200 bg-gray-50 px-4 py-3 -mx-4 lg:-mx-6 lg:px-6">
         <button
           onClick={save}

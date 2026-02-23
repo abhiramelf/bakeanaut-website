@@ -12,7 +12,7 @@ interface GalleryImage {
   alt: string
 }
 
-export default function GalleryManager() {
+export default function GalleryTab() {
   const [images, setImages] = useState<GalleryImage[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -95,7 +95,6 @@ export default function GalleryManager() {
         </button>
       </div>
 
-      {/* Image grid */}
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {images.map((img, i) => (
           <div key={i} className="group relative border border-gray-200 bg-white">
@@ -145,11 +144,8 @@ export default function GalleryManager() {
           </div>
         ))}
 
-        {/* Upload slot */}
         <div className="border border-gray-200 bg-white p-2">
-          <ImageUploader
-            onUpload={handleUpload}
-          />
+          <ImageUploader onUpload={handleUpload} />
         </div>
       </div>
 

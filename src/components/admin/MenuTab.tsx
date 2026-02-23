@@ -13,25 +13,10 @@ function generateId(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
 
-const emptyItem: MenuItem = {
-  id: '',
-  name: '',
-  description: '',
-  price: null,
-  badges: [],
-  images: [],
-}
+const emptyItem: MenuItem = { id: '', name: '', description: '', price: null, badges: [], images: [] }
+const emptySector: Sector = { id: '', code: '', name: '', subtitle: '', flavorText: '', items: [] }
 
-const emptySector: Sector = {
-  id: '',
-  code: '',
-  name: '',
-  subtitle: '',
-  flavorText: '',
-  items: [],
-}
-
-export default function MenuEditor() {
+export default function MenuTab() {
   const [menu, setMenu] = useState<MenuData | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
@@ -136,10 +121,7 @@ export default function MenuEditor() {
 
   function addBundle() {
     if (!menu) return
-    setMenu({
-      ...menu,
-      bundles: [...menu.bundles, { id: `bundle-${Date.now()}`, name: '', description: '' }],
-    })
+    setMenu({ ...menu, bundles: [...menu.bundles, { id: `bundle-${Date.now()}`, name: '', description: '' }] })
   }
 
   function updateBundle(idx: number, updates: Partial<Bundle>) {
@@ -186,40 +168,22 @@ export default function MenuEditor() {
           </p>
         </div>
         <div className="flex gap-3">
-          <button onClick={addSector} className="border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-            + Add Sector
-          </button>
-          <button
-            onClick={() => save(menu)}
-            disabled={saving}
-            className="bg-gray-900 px-5 py-2 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-50"
-          >
+          <button onClick={addSector} className="border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">+ Add Sector</button>
+          <button onClick={() => save(menu)} disabled={saving} className="bg-gray-900 px-5 py-2 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-50">
             {saving ? 'Saving...' : 'Save Menu'}
           </button>
         </div>
       </div>
 
-      {/* Featured Item IDs */}
       <div className="mt-6 border border-gray-200 bg-white p-4">
         <label className="block text-sm font-semibold text-gray-900">Featured Item IDs (comma-separated)</label>
-        <input
-          type="text"
-          value={menu.featuredItemIds.join(', ')}
-          onChange={(e) => setMenu({ ...menu, featuredItemIds: e.target.value.split(',').map((s) => s.trim()).filter(Boolean) })}
-          className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-          placeholder="red-planet, apollo-rock, manhattan-moon"
-        />
+        <input type="text" value={menu.featuredItemIds.join(', ')} onChange={(e) => setMenu({ ...menu, featuredItemIds: e.target.value.split(',').map((s) => s.trim()).filter(Boolean) })} className="mt-1 w-full border border-gray-300 px-3 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" placeholder="red-planet, apollo-rock, manhattan-moon" />
       </div>
 
-      {/* Sectors */}
       <div className="mt-4 space-y-3">
         {menu.sectors.map((sector, sIdx) => (
           <div key={sector.id} className="border border-gray-200 bg-white">
-            {/* Sector header */}
-            <div
-              className="flex cursor-pointer items-center justify-between px-4 py-3"
-              onClick={() => setExpandedSector(expandedSector === sector.id ? null : sector.id)}
-            >
+            <div className="flex cursor-pointer items-center justify-between px-4 py-3" onClick={() => setExpandedSector(expandedSector === sector.id ? null : sector.id)}>
               <div className="flex items-center gap-3">
                 <span className="font-mono text-xs text-gray-400">{sector.code}</span>
                 <span className="text-sm font-semibold text-gray-900">{sector.name || 'Unnamed Sector'}</span>
@@ -229,13 +193,10 @@ export default function MenuEditor() {
                 <button onClick={(e) => { e.stopPropagation(); moveSector(sIdx, -1) }} disabled={sIdx === 0} className="px-1 text-gray-400 hover:text-gray-600 disabled:opacity-30" aria-label="Move up">&uarr;</button>
                 <button onClick={(e) => { e.stopPropagation(); moveSector(sIdx, 1) }} disabled={sIdx === menu.sectors.length - 1} className="px-1 text-gray-400 hover:text-gray-600 disabled:opacity-30" aria-label="Move down">&darr;</button>
                 <button onClick={(e) => { e.stopPropagation(); setDeleteTarget({ type: 'sector', sectorIdx: sIdx }) }} className="px-1 text-red-400 hover:text-red-600" aria-label="Delete">&times;</button>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-transform ${expandedSector === sector.id ? 'rotate-180' : ''}`}>
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`transition-transform ${expandedSector === sector.id ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9" /></svg>
               </div>
             </div>
 
-            {/* Sector detail */}
             {expandedSector === sector.id && (
               <div className="border-t border-gray-200 px-4 py-4">
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -257,7 +218,6 @@ export default function MenuEditor() {
                   </div>
                 </div>
 
-                {/* Items */}
                 <div className="mt-5">
                   <div className="flex items-center justify-between">
                     <label className="text-sm font-semibold text-gray-900">Items</label>
@@ -267,7 +227,6 @@ export default function MenuEditor() {
                     {sector.items.map((item, iIdx) => (
                       <div key={item.id} className="border border-gray-200 p-3">
                         {editingItem?.sectorIdx === sIdx && editingItem?.itemIdx === iIdx ? (
-                          /* Expanded item edit form */
                           <div className="space-y-3">
                             <div className="grid gap-3 sm:grid-cols-3">
                               <div>
@@ -283,17 +242,10 @@ export default function MenuEditor() {
                                 <div className="mt-1 flex flex-wrap gap-2">
                                   {allBadges.map((badge) => (
                                     <label key={badge} className="flex items-center gap-1 text-xs text-gray-600">
-                                      <input
-                                        type="checkbox"
-                                        checked={item.badges.includes(badge)}
-                                        onChange={(e) => {
-                                          const badges = e.target.checked
-                                            ? [...item.badges, badge]
-                                            : item.badges.filter((b) => b !== badge)
-                                          updateItem(sIdx, iIdx, { badges })
-                                        }}
-                                        className="accent-orange-500"
-                                      />
+                                      <input type="checkbox" checked={item.badges.includes(badge)} onChange={(e) => {
+                                        const badges = e.target.checked ? [...item.badges, badge] : item.badges.filter((b) => b !== badge)
+                                        updateItem(sIdx, iIdx, { badges })
+                                      }} className="accent-orange-500" />
                                       {badge}
                                     </label>
                                   ))}
@@ -306,16 +258,11 @@ export default function MenuEditor() {
                             </div>
                             <div>
                               <label className="block text-xs font-medium text-gray-500 mb-1">Image</label>
-                              <ImageUploader
-                                currentUrl={item.images?.[0]}
-                                onUpload={(url) => updateItem(sIdx, iIdx, { images: [url] })}
-                                onRemove={() => updateItem(sIdx, iIdx, { images: [] })}
-                              />
+                              <ImageUploader currentUrl={item.images?.[0]} onUpload={(url) => updateItem(sIdx, iIdx, { images: [url] })} onRemove={() => updateItem(sIdx, iIdx, { images: [] })} />
                             </div>
                             <button onClick={() => setEditingItem(null)} className="text-xs text-gray-500 hover:text-gray-700">Collapse</button>
                           </div>
                         ) : (
-                          /* Collapsed item row */
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setEditingItem({ sectorIdx: sIdx, itemIdx: iIdx })}>
                               <span className="text-sm font-medium text-gray-900">{item.name || 'Unnamed Item'}</span>
@@ -341,7 +288,6 @@ export default function MenuEditor() {
         ))}
       </div>
 
-      {/* Special Payloads */}
       <div className="mt-8">
         <h2 className="text-lg font-bold text-gray-900">Special Payloads</h2>
         <div className="mt-3 border border-gray-200 bg-white p-4">
@@ -384,7 +330,6 @@ export default function MenuEditor() {
         </div>
       </div>
 
-      {/* Bundles */}
       <div className="mt-8">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-900">Bundles</h2>
@@ -393,45 +338,22 @@ export default function MenuEditor() {
         <div className="mt-3 space-y-2">
           {menu.bundles.map((bundle, i) => (
             <div key={bundle.id} className="flex items-center gap-3 border border-gray-200 bg-white p-3">
-              <input
-                type="text"
-                value={bundle.name}
-                onChange={(e) => updateBundle(i, { name: e.target.value, id: generateId(e.target.value) || bundle.id })}
-                placeholder="Bundle name"
-                className="w-40 border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-              />
-              <input
-                type="text"
-                value={bundle.description}
-                onChange={(e) => updateBundle(i, { description: e.target.value })}
-                placeholder="Description"
-                className="flex-1 border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none"
-              />
+              <input type="text" value={bundle.name} onChange={(e) => updateBundle(i, { name: e.target.value, id: generateId(e.target.value) || bundle.id })} placeholder="Bundle name" className="w-40 border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+              <input type="text" value={bundle.description} onChange={(e) => updateBundle(i, { description: e.target.value })} placeholder="Description" className="flex-1 border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
               <button onClick={() => setDeleteTarget({ type: 'bundle', bundleIdx: i })} className="text-red-400 hover:text-red-600">&times;</button>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Sticky save bar */}
       <div className="sticky bottom-0 mt-6 border-t border-gray-200 bg-gray-50 px-4 py-3 -mx-4 lg:-mx-6 lg:px-6">
-        <button
-          onClick={() => save(menu)}
-          disabled={saving}
-          className="bg-gray-900 px-5 py-2 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-50"
-        >
+        <button onClick={() => save(menu)} disabled={saving} className="bg-gray-900 px-5 py-2 text-sm font-semibold text-white hover:bg-gray-800 disabled:opacity-50">
           {saving ? 'Saving...' : 'Save Menu'}
         </button>
       </div>
 
       {deleteTarget && (
-        <ConfirmDialog
-          title={`Delete ${deleteTarget.type}`}
-          message={`Are you sure you want to delete this ${deleteTarget.type}?`}
-          confirmLabel="Delete"
-          onConfirm={handleDelete}
-          onCancel={() => setDeleteTarget(null)}
-        />
+        <ConfirmDialog title={`Delete ${deleteTarget.type}`} message={`Are you sure you want to delete this ${deleteTarget.type}?`} confirmLabel="Delete" onConfirm={handleDelete} onCancel={() => setDeleteTarget(null)} />
       )}
 
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
