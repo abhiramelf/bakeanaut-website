@@ -14,11 +14,24 @@ export default function ImageUploader({ currentUrl, onUpload, onRemove }: ImageU
   const [dragOver, setDragOver] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  async function compressToWebP(file: File): Promise<File> {
+    if (file.type === 'image/webp') return file
+    const bitmap = await createImageBitmap(file)
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height)
+    const ctx = canvas.getContext('2d')!
+    ctx.drawImage(bitmap, 0, 0)
+    bitmap.close()
+    const blob = await canvas.convertToBlob({ type: 'image/webp', quality: 0.8 })
+    const name = file.name.replace(/\.[^.]+$/, '.webp')
+    return new File([blob], name, { type: 'image/webp' })
+  }
+
   async function handleFile(file: File) {
     setUploading(true)
     try {
+      const compressed = await compressToWebP(file)
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', compressed)
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData })
       if (!res.ok) {
         const data = await res.json()

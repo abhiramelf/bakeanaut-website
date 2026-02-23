@@ -154,6 +154,17 @@ export default function MenuTab() {
     })
   }
 
+  function deleteSpecialItem(itemIdx: number) {
+    if (!menu) return
+    setMenu({
+      ...menu,
+      specialPayloads: {
+        ...menu.specialPayloads,
+        items: menu.specialPayloads.items.filter((_, i) => i !== itemIdx),
+      },
+    })
+  }
+
   if (loading || !menu) {
     return <div className="py-12 text-center text-gray-400">Loading menu...</div>
   }
@@ -257,8 +268,27 @@ export default function MenuTab() {
                               <input type="text" value={item.description} onChange={(e) => updateItem(sIdx, iIdx, { description: e.target.value })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
                             </div>
                             <div>
-                              <label className="block text-xs font-medium text-gray-500 mb-1">Image</label>
-                              <ImageUploader currentUrl={item.images?.[0]} onUpload={(url) => updateItem(sIdx, iIdx, { images: [url] })} onRemove={() => updateItem(sIdx, iIdx, { images: [] })} />
+                              <label className="block text-xs font-medium text-gray-500 mb-1">Images</label>
+                              <div className="flex flex-wrap gap-2">
+                                {(item.images ?? []).map((img, imgIdx) => (
+                                  <ImageUploader
+                                    key={imgIdx}
+                                    currentUrl={img}
+                                    onUpload={(url) => {
+                                      const images = [...(item.images ?? [])]
+                                      images[imgIdx] = url
+                                      updateItem(sIdx, iIdx, { images })
+                                    }}
+                                    onRemove={() => {
+                                      const images = (item.images ?? []).filter((_, i) => i !== imgIdx)
+                                      updateItem(sIdx, iIdx, { images })
+                                    }}
+                                  />
+                                ))}
+                                <ImageUploader
+                                  onUpload={(url) => updateItem(sIdx, iIdx, { images: [...(item.images ?? []), url] })}
+                                />
+                              </div>
                             </div>
                             <button onClick={() => setEditingItem(null)} className="text-xs text-gray-500 hover:text-gray-700">Collapse</button>
                           </div>
@@ -309,18 +339,58 @@ export default function MenuTab() {
             <div className="mt-2 space-y-2">
               {menu.specialPayloads.items.map((item, iIdx) => (
                 <div key={item.id} className="border border-gray-200 p-3 space-y-3">
-                  <div className="grid gap-3 sm:grid-cols-3">
-                    <div>
-                      <label className="block text-xs font-medium text-gray-500">Name</label>
-                      <input type="text" value={item.name} onChange={(e) => updateSpecialItem(iIdx, { name: e.target.value, id: generateId(e.target.value) || item.id })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                  <div className="flex items-start justify-between">
+                    <div className="grid flex-1 gap-3 sm:grid-cols-3">
+                      <div>
+                        <label className="block text-xs font-medium text-gray-500">Name</label>
+                        <input type="text" value={item.name} onChange={(e) => updateSpecialItem(iIdx, { name: e.target.value, id: generateId(e.target.value) || item.id })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-gray-500">Price</label>
+                        <input type="number" value={item.price ?? ''} onChange={(e) => updateSpecialItem(iIdx, { price: e.target.value ? Number(e.target.value) : null })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-gray-500">Description</label>
+                        <input type="text" value={item.description} onChange={(e) => updateSpecialItem(iIdx, { description: e.target.value })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                      </div>
                     </div>
-                    <div>
-                      <label className="block text-xs font-medium text-gray-500">Price</label>
-                      <input type="number" value={item.price ?? ''} onChange={(e) => updateSpecialItem(iIdx, { price: e.target.value ? Number(e.target.value) : null })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                    <button onClick={() => deleteSpecialItem(iIdx)} className="ml-3 mt-5 px-1 text-red-400 hover:text-red-600" aria-label="Delete item">&times;</button>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500">Badges</label>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      {allBadges.map((badge) => (
+                        <label key={badge} className="flex items-center gap-1 text-xs text-gray-600">
+                          <input type="checkbox" checked={item.badges.includes(badge)} onChange={(e) => {
+                            const badges = e.target.checked ? [...item.badges, badge] : item.badges.filter((b) => b !== badge)
+                            updateSpecialItem(iIdx, { badges })
+                          }} className="accent-orange-500" />
+                          {badge}
+                        </label>
+                      ))}
                     </div>
-                    <div>
-                      <label className="block text-xs font-medium text-gray-500">Description</label>
-                      <input type="text" value={item.description} onChange={(e) => updateSpecialItem(iIdx, { description: e.target.value })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-gray-500 mb-1">Images</label>
+                    <div className="flex flex-wrap gap-2">
+                      {(item.images ?? []).map((img, imgIdx) => (
+                        <ImageUploader
+                          key={imgIdx}
+                          currentUrl={img}
+                          onUpload={(url) => {
+                            const images = [...(item.images ?? [])]
+                            images[imgIdx] = url
+                            updateSpecialItem(iIdx, { images })
+                          }}
+                          onRemove={() => {
+                            const images = (item.images ?? []).filter((_, i) => i !== imgIdx)
+                            updateSpecialItem(iIdx, { images })
+                          }}
+                        />
+                      ))}
+                      <ImageUploader
+                        onUpload={(url) => updateSpecialItem(iIdx, { images: [...(item.images ?? []), url] })}
+                      />
                     </div>
                   </div>
                 </div>
