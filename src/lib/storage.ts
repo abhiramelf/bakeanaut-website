@@ -1,4 +1,4 @@
-import { put, del, list } from '@vercel/blob'
+import { put, del, get } from '@vercel/blob'
 import { readFile, writeFile, mkdir, unlink } from 'fs/promises'
 import { existsSync } from 'fs'
 import path from 'path'
@@ -19,15 +19,10 @@ export async function readJson<T>(key: string): Promise<T | null> {
         console.error('[storage] readJson: BLOB_READ_WRITE_TOKEN is not set')
         return null
       }
-      const blobs = await list({ prefix: key })
-      const blob = blobs.blobs.find((b) => b.pathname === key)
-      if (!blob) return null
-      const res = await fetch(blob.url)
-      if (!res.ok) {
-        console.error(`[storage] readJson("${key}") fetch failed: ${res.status} ${res.statusText}`)
-        return null
-      }
-      return (await res.json()) as T
+      const result = await get(key, { access: 'private' })
+      if (!result) return null
+      const text = await new Response(result.stream).text()
+      return JSON.parse(text) as T
     } catch (error) {
       console.error(`[storage] readJson("${key}") failed:`, error)
       return null
@@ -57,6 +52,7 @@ export async function writeJson<T>(key: string, data: T): Promise<void> {
         access: 'private',
         contentType: 'application/json',
         addRandomSuffix: false,
+        allowOverwrite: true,
       })
     } catch (error) {
       console.error(`[storage] writeJson("${key}") failed:`, error)
@@ -85,6 +81,7 @@ export async function uploadImage(
       access: 'private',
       contentType,
       addRandomSuffix: false,
+      allowOverwrite: true,
     })
     return blob.url
   }
