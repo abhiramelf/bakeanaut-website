@@ -56,12 +56,22 @@ export default function GalleryTab() {
     save(updated)
   }
 
-  function handleDelete() {
+  async function handleDelete() {
     if (deleteIdx === null) return
+    const deletedImage = images[deleteIdx]
     const updated = images.filter((_, i) => i !== deleteIdx)
     setImages(updated)
     setDeleteIdx(null)
     save(updated)
+
+    // Delete the actual file from blob storage
+    if (deletedImage.url && !deletedImage.url.startsWith('/images/')) {
+      fetch('/api/admin/upload', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: deletedImage.url }),
+      }).catch((err) => console.error('Failed to delete blob:', err))
+    }
   }
 
   function moveImage(index: number, direction: -1 | 1) {

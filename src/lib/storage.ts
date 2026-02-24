@@ -78,7 +78,7 @@ export async function uploadImage(
 ): Promise<string> {
   if (isVercel) {
     const blob = await put(`images/${filename}`, file, {
-      access: 'private',
+      access: 'public',
       contentType,
       addRandomSuffix: false,
       allowOverwrite: true,
