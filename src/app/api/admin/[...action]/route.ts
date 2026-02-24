@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { verifyPassword, createSession, setSessionCookie, clearSessionCookie } from '@/lib/auth'
-import { readJson, writeJson, uploadImage, deleteImage } from '@/lib/storage'
+import { readJson, writeJson, uploadImage, deleteImage, getImageDisplayUrl } from '@/lib/storage'
 import type { SiteContent, MenuData } from '@/types/content'
 import defaultContent from '@/data/default-content.json'
 import defaultMenu from '@/data/menu.json'
@@ -19,7 +19,14 @@ export async function GET(
   if (route === 'content') {
     try {
       const content = await readJson<SiteContent>('content.json')
-      return NextResponse.json(content ?? defaultContent)
+      const data = content ?? defaultContent
+      if (data.gallery?.images) {
+        data.gallery.images = data.gallery.images.map((img: { url: string; alt: string }) => ({
+          ...img,
+          url: getImageDisplayUrl(img.url),
+        }))
+      }
+      return NextResponse.json(data)
     } catch {
       return NextResponse.json(defaultContent)
     }
@@ -87,7 +94,8 @@ export async function POST(
       const buffer = Buffer.from(await file.arrayBuffer())
       const ext = file.name.split('.').pop() || 'webp'
       const filename = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
-      const url = await uploadImage(buffer, filename, file.type)
+      const storedPath = await uploadImage(buffer, filename, file.type)
+      const url = getImageDisplayUrl(storedPath)
       return NextResponse.json({ url })
     } catch (error) {
       return NextResponse.json(
@@ -109,6 +117,13 @@ export async function PUT(
   if (route === 'content') {
     try {
       const content = (await request.json()) as SiteContent
+      // Strip proxy prefix so we store raw blob pathnames, not display URLs
+      if (content.gallery?.images) {
+        content.gallery.images = content.gallery.images.map((img: { url: string; alt: string }) => ({
+          ...img,
+          url: img.url.startsWith('/api/blob/') ? img.url.replace('/api/blob/', '') : img.url,
+        }))
+      }
       content._updatedAt = new Date().toISOString()
       content._version = (content._version || 0) + 1
       await writeJson('content.json', content)

@@ -78,12 +78,12 @@ export async function uploadImage(
 ): Promise<string> {
   if (isVercel) {
     const blob = await put(`images/${filename}`, file, {
-      access: 'public',
+      access: 'private',
       contentType,
       addRandomSuffix: false,
       allowOverwrite: true,
     })
-    return blob.url
+    return blob.pathname
   }
 
   // Local filesystem — save to public/uploads/
@@ -99,7 +99,12 @@ export async function uploadImage(
 export async function deleteImage(url: string): Promise<void> {
   if (isVercel) {
     try {
-      await del(url)
+      // URLs stored as blob pathnames (e.g. "images/abc.webp")
+      // or proxy URLs (e.g. "/api/blob/images/abc.webp")
+      const pathname = url.startsWith('/api/blob/')
+        ? url.replace('/api/blob/', '')
+        : url
+      await del(pathname)
     } catch {
       // Ignore deletion errors
     }
@@ -115,4 +120,19 @@ export async function deleteImage(url: string): Promise<void> {
       // File may not exist
     }
   }
+}
+
+/**
+ * Convert a stored image path to a displayable URL.
+ * - Local uploads ("/uploads/...") are served directly from public/
+ * - Static images ("/images/...") are served directly from public/
+ * - Blob pathnames ("images/...") are proxied via /api/blob/
+ */
+export function getImageDisplayUrl(storedUrl: string): string {
+  if (storedUrl.startsWith('/')) {
+    // Already a local path (e.g. /uploads/xxx or /images/gallery/xxx)
+    return storedUrl
+  }
+  // Blob pathname — proxy through our API
+  return `/api/blob/${storedUrl}`
 }
