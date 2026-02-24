@@ -15,13 +15,21 @@ async function ensureLocalDir() {
 export async function readJson<T>(key: string): Promise<T | null> {
   if (isVercel) {
     try {
+      if (!process.env.BLOB_READ_WRITE_TOKEN) {
+        console.error('[storage] readJson: BLOB_READ_WRITE_TOKEN is not set')
+        return null
+      }
       const blobs = await list({ prefix: key })
       const blob = blobs.blobs.find((b) => b.pathname === key)
       if (!blob) return null
       const res = await fetch(blob.url)
-      if (!res.ok) return null
+      if (!res.ok) {
+        console.error(`[storage] readJson("${key}") fetch failed: ${res.status} ${res.statusText}`)
+        return null
+      }
       return (await res.json()) as T
-    } catch {
+    } catch (error) {
+      console.error(`[storage] readJson("${key}") failed:`, error)
       return null
     }
   }
@@ -41,11 +49,19 @@ export async function writeJson<T>(key: string, data: T): Promise<void> {
   const json = JSON.stringify(data, null, 2)
 
   if (isVercel) {
-    await put(key, json, {
-      access: 'private',
-      contentType: 'application/json',
-      addRandomSuffix: false,
-    })
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      throw new Error('BLOB_READ_WRITE_TOKEN is not set in environment variables')
+    }
+    try {
+      await put(key, json, {
+        access: 'private',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+      })
+    } catch (error) {
+      console.error(`[storage] writeJson("${key}") failed:`, error)
+      throw error
+    }
     return
   }
 

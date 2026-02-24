@@ -37,10 +37,14 @@ export default function GalleryTab() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(content),
       })
-      if (!saveRes.ok) throw new Error('Failed to save')
+      if (!saveRes.ok) {
+        const errData = await saveRes.json().catch(() => ({}))
+        throw new Error(errData.error || `HTTP ${saveRes.status}`)
+      }
       setToast({ message: 'Gallery saved', type: 'success' })
-    } catch {
-      setToast({ message: 'Failed to save gallery', type: 'error' })
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Unknown error'
+      setToast({ message: `Failed to save gallery: ${msg}`, type: 'error' })
     } finally {
       setSaving(false)
     }

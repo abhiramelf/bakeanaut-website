@@ -116,10 +116,11 @@ export async function PUT(
       revalidatePath('/menu')
       return NextResponse.json({ success: true })
     } catch (error) {
-      return NextResponse.json(
-        { error: error instanceof Error ? error.message : 'Failed to save' },
-        { status: 500 }
-      )
+      console.error('[api] PUT /content failed:', error)
+      const message = error instanceof Error
+        ? `${error.constructor.name}: ${error.message}`
+        : 'Failed to save'
+      return NextResponse.json({ error: message }, { status: 500 })
     }
   }
 
@@ -131,10 +132,11 @@ export async function PUT(
       revalidatePath('/menu')
       return NextResponse.json({ success: true })
     } catch (error) {
-      return NextResponse.json(
-        { error: error instanceof Error ? error.message : 'Failed to save' },
-        { status: 500 }
-      )
+      console.error('[api] PUT /menu failed:', error)
+      const message = error instanceof Error
+        ? `${error.constructor.name}: ${error.message}`
+        : 'Failed to save'
+      return NextResponse.json({ error: message }, { status: 500 })
     }
   }
 
