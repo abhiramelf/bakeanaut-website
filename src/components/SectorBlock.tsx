@@ -1,5 +1,6 @@
 import ScrollReveal from './ScrollReveal'
 import MenuItem from './MenuItem'
+import ClassifiedMenuItem from './ClassifiedMenuItem'
 import type { Sector } from '@/types'
 
 interface SectorBlockProps {
@@ -49,11 +50,15 @@ export default function SectorBlock({ sector, index, hideHeader }: SectorBlockPr
       <div className={`${hideHeader ? '' : 'mt-6'} grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`}>
         {sector.items.map((item, i) => (
           <ScrollReveal key={item.id} delay={i * 0.05}>
-            <MenuItem
-              item={item}
-              sectorName={sector.name}
-              sectorCode={sector.code}
-            />
+            {item.classified ? (
+              <ClassifiedMenuItem item={item} />
+            ) : (
+              <MenuItem
+                item={item}
+                sectorName={sector.name}
+                sectorCode={sector.code}
+              />
+            )}
           </ScrollReveal>
         ))}
       </div>

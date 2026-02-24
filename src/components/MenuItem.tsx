@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { MenuItem as MenuItemType } from '@/types'
 import { useCart } from '@/hooks/useCart'
+import { useSound } from '@/hooks/useSound'
 import ImageCarousel from './ImageCarousel'
 
 interface MenuItemProps {
@@ -43,6 +44,7 @@ function BadgeTags({ item }: { item: MenuItemType }) {
 
 function ItemControls({ item, sectorName, sectorCode }: MenuItemProps) {
   const { addItem, items, updateQuantity } = useCart()
+  const { play } = useSound()
   const [justAdded, setJustAdded] = useState(false)
 
   const cartItem = items.find((ci) => ci.menuItem.id === item.id)
@@ -50,6 +52,7 @@ function ItemControls({ item, sectorName, sectorCode }: MenuItemProps) {
 
   const handleAdd = () => {
     addItem(item, sectorName, sectorCode)
+    play('beep')
     setJustAdded(true)
     setTimeout(() => setJustAdded(false), 300)
   }

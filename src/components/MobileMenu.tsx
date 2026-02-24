@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import { useCart } from '@/hooks/useCart'
+import SoundToggle from './SoundToggle'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -104,6 +105,10 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             </div>
 
             <div className="p-6">
+              <div className="mb-4 flex items-center justify-between border-b border-light-purple/30 pb-4">
+                <span className="font-mono text-xs text-muted-purple tracking-wider">SOUND</span>
+                <SoundToggle />
+              </div>
               <a
                 href={buildSmartOrderUrl(items, whatsappPhone)}
                 target="_blank"

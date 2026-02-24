@@ -2,7 +2,11 @@ import type { Metadata, Viewport } from 'next'
 import { Syne, Space_Grotesk, Space_Mono } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/hooks/useCart'
+import { MissionLogProvider } from '@/hooks/useMissionLog'
+import { SoundProvider } from '@/hooks/useSound'
 import CartToast from '@/components/CartToast'
+import QuickReorderBar from '@/components/QuickReorderBar'
+import EasterEggOverlay from '@/components/EasterEggOverlay'
 import { getSiteContent } from '@/lib/content'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -138,9 +142,15 @@ export default async function RootLayout({
           Skip to content
         </a>
         <CartProvider whatsappPhone={whatsappPhone}>
-          <CartToast />
-          {children}
-          <SpeedInsights />
+          <MissionLogProvider>
+            <SoundProvider>
+              <CartToast />
+              <QuickReorderBar />
+              <EasterEggOverlay />
+              {children}
+              <SpeedInsights />
+            </SoundProvider>
+          </MissionLogProvider>
         </CartProvider>
       </body>
     </html>

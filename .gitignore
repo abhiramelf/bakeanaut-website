@@ -43,3 +43,7 @@ public/uploads/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+bakeanaut_master.md
+claude-session.txt
+inspo.md

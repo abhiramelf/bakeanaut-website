@@ -1,16 +1,20 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
+import { useMissionLog } from '@/hooks/useMissionLog'
 import { useScrollSpy } from '@/hooks/useScrollSpy'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { buildSmartOrderUrl } from '@/lib/whatsapp'
 import { trackEvent } from '@/lib/analytics'
 import MobileMenu from './MobileMenu'
 import CartDrawer from './CartDrawer'
 import StickyCartBar from './StickyCartBar'
+import SoundToggle from './SoundToggle'
+import KeyboardShortcutsModal from './KeyboardShortcutsModal'
 
 const navLinks = [
   { href: '/menu', label: 'Menu', id: 'menu', isRoute: true },
@@ -26,7 +30,9 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
+  const [shortcutsOpen, setShortcutsOpen] = useState(false)
   const { totalItems, items, addCount } = useCart()
+  const { logOrder } = useMissionLog()
   const cartButtonRef = useRef<HTMLButtonElement>(null)
   const activeSection = useScrollSpy(['hero', 'about', 'gallery', 'menu'])
   const shouldReduceMotion = useReducedMotion()
@@ -58,6 +64,26 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
 
   const openCart = useCallback(() => setCartOpen(true), [])
   const closeCart = useCallback(() => setCartOpen(false), [])
+  const closeShortcuts = useCallback(() => setShortcutsOpen(false), [])
+
+  const shortcuts = useMemo(
+    () => ({
+      c: () => setCartOpen(true),
+      C: () => setCartOpen(true),
+      '?': () => setShortcutsOpen(true),
+      '/': () => {
+        const searchInput = document.getElementById('menu-search')
+        if (searchInput) {
+          searchInput.focus()
+        } else {
+          window.location.href = '/menu'
+        }
+      },
+    }),
+    []
+  )
+
+  useKeyboardShortcuts(shortcuts)
 
   return (
     <>
@@ -124,7 +150,12 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
           </div>
 
           {/* Right side */}
-          <div className="ml-auto flex items-center gap-5 md:ml-0">
+          <div className="ml-auto flex items-center gap-3 md:ml-0 md:gap-4">
+            {/* Sound toggle — desktop only */}
+            <div className="hidden md:block">
+              <SoundToggle />
+            </div>
+
             {/* Cart button */}
             <button
               ref={cartButtonRef}
@@ -155,7 +186,10 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
               href={buildSmartOrderUrl(items, phone)}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent('navbar_order_click', 'cta')}
+              onClick={() => {
+                if (items.length > 0) logOrder(items)
+                trackEvent('navbar_order_click', 'cta')
+              }}
               className="hidden bg-cosmic-orange px-6 py-2.5 font-display text-sm font-bold uppercase tracking-widest text-dark-bg transition-all duration-200 hover:shadow-[0_0_20px_rgba(255,138,61,0.4)] hover:brightness-110 md:block"
             >
               Order Now
@@ -181,6 +215,7 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
       />
       <CartDrawer isOpen={cartOpen} onClose={closeCart} />
       <StickyCartBar onOpenCart={openCart} />
+      <KeyboardShortcutsModal isOpen={shortcutsOpen} onClose={closeShortcuts} />
     </>
   )
 }

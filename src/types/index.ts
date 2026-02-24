@@ -7,6 +7,9 @@ export interface MenuItem {
   price: number | null
   badges: BadgeType[]
   images?: string[]
+  classified?: boolean
+  classifiedRevealDate?: string
+  classifiedTeaser?: string
 }
 
 export interface FeaturedItem {

@@ -268,6 +268,24 @@ export default function MenuTab() {
                               <input type="text" value={item.description} onChange={(e) => updateItem(sIdx, iIdx, { description: e.target.value })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
                             </div>
                             <div>
+                              <label className="flex items-center gap-2 text-xs font-medium text-gray-500">
+                                <input type="checkbox" checked={item.classified ?? false} onChange={(e) => updateItem(sIdx, iIdx, { classified: e.target.checked })} className="accent-orange-500" />
+                                Classified Item
+                              </label>
+                              {item.classified && (
+                                <div className="mt-2 grid gap-3 sm:grid-cols-2 border border-yellow-200 bg-yellow-50 p-3">
+                                  <div>
+                                    <label className="block text-xs font-medium text-gray-500">Reveal Date</label>
+                                    <input type="date" value={item.classifiedRevealDate ?? ''} onChange={(e) => updateItem(sIdx, iIdx, { classifiedRevealDate: e.target.value || undefined })} className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                                  </div>
+                                  <div>
+                                    <label className="block text-xs font-medium text-gray-500">Teaser Text</label>
+                                    <input type="text" value={item.classifiedTeaser ?? ''} onChange={(e) => updateItem(sIdx, iIdx, { classifiedTeaser: e.target.value || undefined })} placeholder="A hint about the mission..." className="mt-1 w-full border border-gray-300 px-2 py-1.5 text-sm text-gray-900 focus:border-orange-500 focus:outline-none" />
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                            <div>
                               <label className="block text-xs font-medium text-gray-500 mb-1">Images</label>
                               <div className="flex flex-wrap gap-2">
                                 {(item.images ?? []).map((img, imgIdx) => (
@@ -297,6 +315,9 @@ export default function MenuTab() {
                             <div className="flex items-center gap-3 cursor-pointer" onClick={() => setEditingItem({ sectorIdx: sIdx, itemIdx: iIdx })}>
                               <span className="text-sm font-medium text-gray-900">{item.name || 'Unnamed Item'}</span>
                               <span className="text-xs text-gray-400">{item.price !== null ? `₹${item.price}` : 'Ask crew'}</span>
+                              {item.classified && (
+                                <span className="bg-yellow-100 px-1.5 py-0.5 text-[10px] font-medium text-yellow-700">CLASSIFIED</span>
+                              )}
                               {item.badges.map((b) => (
                                 <span key={b} className="bg-orange-100 px-1.5 py-0.5 text-[10px] font-medium text-orange-700">{b}</span>
                               ))}

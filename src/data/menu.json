@@ -38,6 +38,16 @@
           "images": [
             "/images/menu/Meteor_Shower.png"
           ]
+        },
+        {
+          "id": "supernova-crunch",
+          "name": "SUPERNOVA CRUNCH",
+          "description": "Classified payload — clearance required",
+          "price": null,
+          "badges": [],
+          "classified": true,
+          "classifiedTeaser": "Explosive caramel core with crystallized sugar shrapnel. Not for the faint-hearted.",
+          "classifiedRevealDate": "2026-03-15"
         }
       ]
     },

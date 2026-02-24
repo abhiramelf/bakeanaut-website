@@ -1,10 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '@/hooks/useCart'
+import { useMissionLog } from '@/hooks/useMissionLog'
+import { useSound } from '@/hooks/useSound'
 import { trackEvent } from '@/lib/analytics'
 import CartItemRow from './CartItem'
+import MissionLog from './MissionLog'
 
 interface CartDrawerProps {
   isOpen: boolean
@@ -23,18 +26,31 @@ function useIsMobile() {
   )
 }
 
+type DrawerTab = 'payload' | 'log'
+
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { items, totalItems, clearCart, generateWhatsAppUrl } = useCart()
+  const { logOrder } = useMissionLog()
+  const { play } = useSound()
   const shouldReduceMotion = useReducedMotion()
   const drawerRef = useRef<HTMLDivElement>(null)
   const [confirmClear, setConfirmClear] = useState(false)
+  const [activeTab, setActiveTab] = useState<DrawerTab>('payload')
   const isMobile = useIsMobile()
+
+  // Wrap onClose to also reset tab (event handler, not effect)
+  const handleClose = useCallback(() => {
+    setActiveTab('payload')
+    onClose()
+  }, [onClose])
 
   useEffect(() => {
     if (!isOpen) return
 
+    play('slide')
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') handleClose()
     }
 
     document.addEventListener('keydown', handleKeyDown)
@@ -45,7 +61,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       document.removeEventListener('keydown', handleKeyDown)
       document.body.style.overflow = ''
     }
-  }, [isOpen, onClose])
+  }, [isOpen, handleClose, play])
 
   const handleClear = () => {
     if (confirmClear) {
@@ -85,7 +101,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             exit={{ opacity: 0 }}
             transition={{ duration }}
             className="fixed inset-0 z-40 bg-dark-bg/85 backdrop-blur-sm"
-            onClick={onClose}
+            onClick={handleClose}
             aria-hidden="true"
           />
 
@@ -113,32 +129,54 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             )}
 
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-light-purple/30 px-6 py-5">
-              <div>
+            <div className="border-b border-light-purple/30 px-6 py-5">
+              <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="h-2 w-2 bg-cosmic-orange" />
                   <h2 className="font-display text-lg font-bold uppercase tracking-tight text-mission-white">
-                    Mission Payload
+                    {activeTab === 'payload' ? 'Mission Payload' : 'Mission Log'}
                   </h2>
                 </div>
-                <p className="mt-1 font-mono text-[10px] tracking-[0.2em] text-muted-purple">
-                  {totalItems} {totalItems === 1 ? 'ITEM' : 'ITEMS'} LOADED
-                </p>
+                <button
+                  onClick={handleClose}
+                  className="flex h-9 w-9 items-center justify-center border border-light-purple/30 text-muted-purple transition-all hover:border-cosmic-orange/50 hover:text-mission-white"
+                  aria-label="Close cart"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M2 2l12 12M14 2L2 14" />
+                  </svg>
+                </button>
               </div>
-              <button
-                onClick={onClose}
-                className="flex h-9 w-9 items-center justify-center border border-light-purple/30 text-muted-purple transition-all hover:border-cosmic-orange/50 hover:text-mission-white"
-                aria-label="Close cart"
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M2 2l12 12M14 2L2 14" />
-                </svg>
-              </button>
+              {/* Tab toggle */}
+              <div className="mt-3 flex gap-0">
+                <button
+                  onClick={() => setActiveTab('payload')}
+                  className={`flex-1 border-b-2 py-2 font-mono text-[10px] tracking-[0.2em] transition-colors ${
+                    activeTab === 'payload'
+                      ? 'border-cosmic-orange text-cosmic-orange'
+                      : 'border-transparent text-muted-purple hover:text-mission-white'
+                  }`}
+                >
+                  PAYLOAD{totalItems > 0 ? ` (${totalItems})` : ''}
+                </button>
+                <button
+                  onClick={() => setActiveTab('log')}
+                  className={`flex-1 border-b-2 py-2 font-mono text-[10px] tracking-[0.2em] transition-colors ${
+                    activeTab === 'log'
+                      ? 'border-cosmic-orange text-cosmic-orange'
+                      : 'border-transparent text-muted-purple hover:text-mission-white'
+                  }`}
+                >
+                  MISSION LOG
+                </button>
+              </div>
             </div>
 
-            {/* Items */}
+            {/* Items / Mission Log */}
             <div className="flex-1 overflow-y-auto px-6 py-4">
-              {items.length === 0 ? (
+              {activeTab === 'log' ? (
+                <MissionLog />
+              ) : items.length === 0 ? (
                 <div className="flex h-full flex-col items-center justify-center text-center">
                   <div className="mb-4 h-px w-12 bg-light-purple/30" />
                   <p className="font-mono text-sm text-muted-purple">
@@ -156,8 +194,8 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               )}
             </div>
 
-            {/* Footer */}
-            {items.length > 0 && (
+            {/* Footer — only on payload tab */}
+            {activeTab === 'payload' && items.length > 0 && (
               <div className="border-t border-light-purple/30 px-6 pt-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0.5rem))]">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="font-mono text-xs tracking-[0.2em] text-muted-purple">
@@ -172,7 +210,11 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   href={generateWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackEvent('launch_order', 'conversion', `${totalItems} items`)}
+                  onClick={() => {
+                    logOrder(items)
+                    play('launch')
+                    trackEvent('launch_order', 'conversion', `${totalItems} items`)
+                  }}
                   className="block w-full bg-cosmic-orange py-4 text-center font-display text-sm font-bold uppercase tracking-[0.2em] text-dark-bg transition-all hover:shadow-[0_0_30px_rgba(255,138,61,0.4)] hover:brightness-110"
                 >
                   Launch Order on WhatsApp
