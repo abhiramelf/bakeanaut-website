@@ -44,6 +44,7 @@ public/uploads/
 *.tsbuildinfo
 next-env.d.ts
 
+docs/
 bakeanaut_master.md
 claude-session.txt
 inspo.md
