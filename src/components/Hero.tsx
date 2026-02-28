@@ -20,7 +20,7 @@ function TickerContent({ items }: { items: string[] }) {
             {item}
           </span>
           <span className="text-cosmic-orange/50" aria-hidden="true">
-            //
+            {'//'}
           </span>
         </span>
       ))}
@@ -70,12 +70,12 @@ export default function Hero({ hero, whatsappPhone }: HeroProps) {
       </motion.div>
 
       {/* Stamps — scattered across the hero background */}
-      <motion.div className="stamp right-4 top-20 lg:right-8 lg:top-24" style={{ y: stampsY, rotate: -12 }}>CLASSIFIED</motion.div>
-      <motion.div className="stamp left-[5%] top-[38%] hidden lg:block" style={{ y: stampsY, rotate: 6 }}>TOP SECRET</motion.div>
-      <motion.div className="stamp right-[15%] top-[55%] hidden lg:block" style={{ y: stampsY, rotate: -4 }}>FRAGILE</motion.div>
-      <motion.div className="stamp-solid left-[12%] bottom-[22%] hidden xl:block" style={{ y: stampsY, rotate: -8 }}>HANDLE WITH CARE</motion.div>
-      <motion.div className="stamp-solid right-[30%] top-[30%] hidden xl:block" style={{ y: stampsY, rotate: 10 }}>CLEARANCE GRANTED</motion.div>
-      <motion.div className="stamp left-[45%] top-[20%] hidden 2xl:block" style={{ y: stampsY, rotate: 3 }}>DO NOT OPEN</motion.div>
+      <motion.div className="stamp right-4 top-20 lg:right-8 lg:top-24" style={{ y: stampsY, rotate: -12 }} aria-hidden="true">CLASSIFIED</motion.div>
+      <motion.div className="stamp left-[5%] top-[38%] hidden lg:block" style={{ y: stampsY, rotate: 6 }} aria-hidden="true">TOP SECRET</motion.div>
+      <motion.div className="stamp right-[15%] top-[55%] hidden lg:block" style={{ y: stampsY, rotate: -4 }} aria-hidden="true">FRAGILE</motion.div>
+      <motion.div className="stamp-solid left-[12%] bottom-[22%] hidden xl:block" style={{ y: stampsY, rotate: -8 }} aria-hidden="true">HANDLE WITH CARE</motion.div>
+      <motion.div className="stamp-solid right-[30%] top-[30%] hidden xl:block" style={{ y: stampsY, rotate: 10 }} aria-hidden="true">CLEARANCE GRANTED</motion.div>
+      <motion.div className="stamp left-[45%] top-[20%] hidden 2xl:block" style={{ y: stampsY, rotate: 3 }} aria-hidden="true">DO NOT OPEN</motion.div>
 
       {/* Mission ticker */}
       <motion.div
@@ -162,7 +162,7 @@ export default function Hero({ hero, whatsappPhone }: HeroProps) {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
           className="text-muted-purple/50"
         >
-          <svg width="18" height="32" viewBox="0 0 18 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg width="18" height="32" viewBox="0 0 18 32" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
             <path d="M9 4v24M3 22l6 6 6-6" />
           </svg>
         </motion.div>

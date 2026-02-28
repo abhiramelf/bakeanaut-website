@@ -109,6 +109,7 @@ export default function Navbar({ whatsappPhone }: NavbarProps) {
               alt="Bakeanaut"
               width={240}
               height={80}
+              sizes="(max-width: 640px) 120px, 180px"
               priority
               draggable={false}
               onContextMenu={(e) => e.preventDefault()}

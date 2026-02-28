@@ -59,7 +59,7 @@ export default function FeaturedMissions({ featuredMissions, menuData }: Feature
           {featuredItems.map((featured, i) => (
             <ScrollReveal key={featured.item.id} delay={i * 0.08}>
               <div className="relative">
-                <span className="mb-2 block font-mono text-[10px] tracking-[0.2em] text-muted-purple/60">
+                <span className="mb-2 block font-mono text-[10px] tracking-[0.2em] text-muted-purple/80">
                   {featured.sectorCode} &middot; {featured.sectorName}
                 </span>
                 <MenuItem

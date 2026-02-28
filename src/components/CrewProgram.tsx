@@ -80,7 +80,7 @@ export default function CrewProgram({ crewProgram, whatsappPhone }: CrewProgramP
                 <h3 className="mt-5 font-display text-2xl font-extrabold uppercase tracking-tight text-mission-white md:text-3xl">
                   {tier.rank}
                 </h3>
-                <p className="mt-1 font-mono text-[11px] tracking-[0.15em] text-muted-purple/60">
+                <p className="mt-1 font-mono text-[11px] tracking-[0.15em] text-muted-purple/80">
                   {tier.requirement}
                 </p>
 

@@ -182,7 +182,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   <p className="font-mono text-sm text-muted-purple">
                     Payload bay is empty.
                   </p>
-                  <p className="mt-1 font-mono text-xs text-muted-purple/60">
+                  <p className="mt-1 font-mono text-xs text-muted-purple/80">
                     Add missions to begin.
                   </p>
                   <div className="mt-4 h-px w-12 bg-light-purple/30" />
@@ -222,7 +222,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                 <button
                   onClick={handleClear}
-                  className="mt-3 w-full py-2 font-mono text-[11px] tracking-wider text-muted-purple/60 transition-colors hover:text-cosmic-orange"
+                  className="mt-3 w-full py-2 font-mono text-[11px] tracking-wider text-muted-purple/80 transition-colors hover:text-cosmic-orange"
                 >
                   {confirmClear ? '[ CONFIRM CLEAR PAYLOAD? ]' : '[ CLEAR PAYLOAD ]'}
                 </button>

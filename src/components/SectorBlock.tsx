@@ -7,9 +7,11 @@ interface SectorBlockProps {
   sector: Sector
   index: number
   hideHeader?: boolean
+  headingLevel?: 'h2' | 'h3'
 }
 
-export default function SectorBlock({ sector, index, hideHeader }: SectorBlockProps) {
+export default function SectorBlock({ sector, index, hideHeader, headingLevel = 'h3' }: SectorBlockProps) {
+  const Heading = headingLevel
   // Extract numeral from sector code (e.g. "SECTOR IV" → "IV")
   const watermark = sector.code.replace(/^SECTOR\s*/i, '') || String(index + 1)
 
@@ -31,11 +33,11 @@ export default function SectorBlock({ sector, index, hideHeader }: SectorBlockPr
             </div>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
-            <h3 className="mt-3 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
+            <Heading className="mt-3 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
               {sector.name}
-            </h3>
+            </Heading>
             <div className="mt-1 flex items-center gap-3">
-              <span className="font-mono text-[10px] tracking-wider text-muted-purple/60">
+              <span className="font-mono text-[10px] tracking-wider text-muted-purple/80">
                 {sector.subtitle}
               </span>
               <span className="text-muted-purple/30">|</span>

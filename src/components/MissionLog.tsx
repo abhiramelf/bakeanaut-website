@@ -28,7 +28,7 @@ function OrderCard({ order, index, onRelaunch }: { order: MissionOrder; index: n
             MISSION #{orderNumber}
           </span>
         </div>
-        <span className="font-mono text-[10px] text-muted-purple/60">
+        <span className="font-mono text-[10px] text-muted-purple/80">
           {formatRelativeTime(order.timestamp)}
         </span>
       </div>
@@ -88,7 +88,7 @@ export default function MissionLog() {
         <p className="font-mono text-sm text-muted-purple">
           No missions logged yet.
         </p>
-        <p className="mt-1 font-mono text-xs text-muted-purple/60">
+        <p className="mt-1 font-mono text-xs text-muted-purple/80">
           Complete an order to begin your log.
         </p>
         <div className="mt-4 h-px w-12 bg-light-purple/30" />

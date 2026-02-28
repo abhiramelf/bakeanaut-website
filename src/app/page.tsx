@@ -6,6 +6,7 @@ import CrewTransmissions from '@/components/CrewTransmissions'
 import FeaturedMissions from '@/components/FeaturedMissions'
 import CrewProgram from '@/components/CrewProgram'
 import Footer from '@/components/Footer'
+import FAQ from '@/components/FAQ'
 import LoadingScreen from '@/components/LoadingScreen'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import { getSiteContent, getMenuData } from '@/lib/content'
@@ -17,7 +18,7 @@ export default async function Home() {
 
   return (
     <>
-      <LoadingScreen systemChecks={content.loadingScreen.systemChecks} />
+      <LoadingScreen />
       <main id="main-content">
         <Navbar whatsappPhone={content.contact.whatsappPhone} />
         <Hero hero={content.hero} whatsappPhone={content.contact.whatsappPhone} />
@@ -33,6 +34,7 @@ export default async function Home() {
           />
         </ErrorBoundary>
         <CrewProgram crewProgram={content.crewProgram} whatsappPhone={content.contact.whatsappPhone} />
+        <FAQ />
         <Footer contact={content.contact} footer={content.footer} />
       </main>
     </>

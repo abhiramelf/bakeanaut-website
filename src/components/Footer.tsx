@@ -1,7 +1,4 @@
-'use client'
-
 import Image from 'next/image'
-import { trackEvent } from '@/lib/analytics'
 import type { SiteContent } from '@/types/content'
 
 interface FooterProps {
@@ -22,10 +19,11 @@ export default function Footer({ contact, footer }: FooterProps) {
             alt="Bakeanaut"
             width={180}
             height={72}
+            sizes="180px"
             draggable={false}
             className="mb-6 h-14 w-auto"
           />
-          <p className="font-mono text-xs tracking-[0.2em] text-muted-purple/60">
+          <p className="font-mono text-xs tracking-[0.2em] text-muted-purple/80">
             {footer.tagline}
           </p>
           <div className="mt-4 h-px w-16 bg-cosmic-orange/30" />
@@ -48,7 +46,6 @@ export default function Footer({ contact, footer }: FooterProps) {
           <div className="flex flex-col gap-2 pt-3">
             <a
               href={`tel:${contact.phone.replace(/\s/g, '')}`}
-              onClick={() => trackEvent('footer_phone_click', 'navigation')}
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
               {contact.phone}
@@ -57,7 +54,6 @@ export default function Footer({ contact, footer }: FooterProps) {
               href={contact.instagram.url}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackEvent('footer_instagram_click', 'navigation')}
               className="text-muted-purple/80 transition-colors hover:text-cosmic-orange"
             >
               {contact.instagram.handle}
@@ -90,7 +86,7 @@ export default function Footer({ contact, footer }: FooterProps) {
       <div className="mx-auto mt-16 max-w-[1280px] border-t border-light-purple/20 pt-8">
         <div className="flex flex-col items-center gap-2">
           <div className="h-px w-12 bg-cosmic-orange/30" />
-          <p className="font-mono text-center text-[11px] tracking-[0.3em] text-muted-purple/40">
+          <p className="font-mono text-center text-[11px] tracking-[0.3em] text-muted-purple/60">
             {footer.closingLine}
           </p>
         </div>

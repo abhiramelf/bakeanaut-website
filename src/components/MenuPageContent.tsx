@@ -126,7 +126,7 @@ export default function MenuPageContent({ menu, menuData }: MenuPageContentProps
         <div className="mx-auto max-w-[1280px] space-y-20">
           {filteredSectors.map((sector, i) => (
             <div key={sector.id} id={sector.id}>
-              <SectorBlock sector={sector} index={i} />
+              <SectorBlock sector={sector} index={i} headingLevel="h2" />
             </div>
           ))}
 
@@ -135,7 +135,7 @@ export default function MenuPageContent({ menu, menuData }: MenuPageContentProps
               <p className="font-mono text-sm text-muted-purple">
                 No missions found for &ldquo;{searchQuery}&rdquo;
               </p>
-              <p className="mt-1 font-mono text-xs text-muted-purple/60">
+              <p className="mt-1 font-mono text-xs text-muted-purple/80">
                 Try a different search term.
               </p>
             </div>
@@ -154,9 +154,9 @@ export default function MenuPageContent({ menu, menuData }: MenuPageContentProps
                 </div>
               </ScrollReveal>
               <ScrollReveal delay={0.1}>
-                <h3 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
+                <h2 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
                   {specialPayloads.name}
-                </h3>
+                </h2>
                 <p className="mt-2 font-body text-sm italic text-cookie-tan md:text-base">
                   {specialPayloads.flavorText}
                 </p>
@@ -187,9 +187,9 @@ export default function MenuPageContent({ menu, menuData }: MenuPageContentProps
                   </span>
                   <div className="h-px flex-1 bg-cosmic-orange/30" />
                 </div>
-                <h3 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
+                <h2 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-tight text-mission-white md:text-4xl">
                   RECOMMENDED <span className="text-cosmic-orange">BUNDLES</span>
-                </h3>
+                </h2>
                 <p className="mt-2 font-body text-sm text-muted-purple md:text-base">
                   Curated flight plans for optimal payload configuration.
                 </p>
